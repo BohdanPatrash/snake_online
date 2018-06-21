@@ -9,11 +9,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Super snake");
-        primaryStage.setScene(new Scene(root, 300, 350));
-        primaryStage.show();
+    public void start(Stage window) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+        window.setTitle("Super snake");
+        window.setScene(new Scene(root, 440, 440));
+        window.setResizable(false);
+        window.show();
     }
 
 
