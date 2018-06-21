@@ -8,10 +8,11 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
+static  Stage window;
     @Override
-    public void start(Stage window) throws Exception{
+    public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+        window = primaryStage;
         window.setTitle("Super snake");
         window.setScene(new Scene(root, 440, 440));
         window.getIcons().add(new Image("images/serpent-frontal-head.png"));
