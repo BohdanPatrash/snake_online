@@ -1,4 +1,4 @@
-package sample;
+package bin;
 
 public class MenuController {
 }
