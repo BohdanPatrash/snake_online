@@ -21,7 +21,7 @@ public class Main extends Application {
         System.out.println("sas");
         int b = 32;
         System.out.println("sosi ska");
-        System.out.println("ssasdkasd");
+        int a = 0;
         launch(args);
     }
 }
