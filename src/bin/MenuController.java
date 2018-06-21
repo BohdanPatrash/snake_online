@@ -26,8 +26,7 @@ public class MenuController {
     }
 
     public void StartBatonPress(){
-        Pane gameView = new Pane();
-        gameView.setPrefSize(400,300);
+        Game.start();
     }
 
 }

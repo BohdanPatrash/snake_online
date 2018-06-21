@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 public class Game {
 
     public static void start(){
-        //Main.window.setScene(new Scene(gameView) );
+        Pane gameView = new Pane();
+        gameView.setPrefSize(400,300);
+        Main.window.setScene(new Scene(gameView) );
     }
 }
