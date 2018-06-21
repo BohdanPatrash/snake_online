@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bin.MenuController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bin.MenuController">
    <children>
-      <Button fx:id="ExitButton" layoutX="125.0" layoutY="270.0" mnemonicParsing="false" onAction="#ExitBattonPress" prefHeight="40.0" prefWidth="190.0" text="EXIT">
+      <Button fx:id="ExitButton" layoutX="125.0" layoutY="270.0" mnemonicParsing="false" onAction="#ExitButtonPress" prefHeight="40.0" prefWidth="190.0" text="EXIT">
          <font>
             <Font size="20.0" />
          </font>
@@ -18,7 +18,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button layoutX="125.0" layoutY="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="190.0" text="START">
+      <Button fx:id="StartButton" layoutX="125.0" layoutY="150.0" mnemonicParsing="false" onAction="#StartBatonPress" prefHeight="40.0" prefWidth="190.0" text="START">
          <font>
             <Font size="20.0" />
          </font>
