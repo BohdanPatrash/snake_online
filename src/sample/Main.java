@@ -18,6 +18,10 @@ public class Main extends Application {
 
 
     public static void main(String[] args){
+        System.out.println("sas");
+        int b = 32;
+        System.out.println("sosi ska");
+        int a = 0;
         launch(args);
     }
 }
