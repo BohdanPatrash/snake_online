@@ -19,6 +19,7 @@ public class Main extends Application {
 
     public static void main(String[] args){
         System.out.println("go");
+        System.out.println("kanfliktik");
         launch(args);
     }
 }
