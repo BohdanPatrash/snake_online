@@ -25,7 +25,7 @@ public class MenuController {
     }
 
     public void StartBatonPress(){
-        Game.start();
+        new Game().run();
     }
 
 }
