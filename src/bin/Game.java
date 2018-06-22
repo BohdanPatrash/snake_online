@@ -21,9 +21,12 @@ public class Game {
             }
             event.consume();
         });
+        Snake snake = new Snake(gameView);
+
 
 
         gameView.getChildren().addAll(field);
+        snake.show();
         Main.window.setScene(gameScene);
     }
 }

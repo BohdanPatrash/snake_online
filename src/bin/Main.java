@@ -17,7 +17,7 @@ static  Scene menu;
         menu = new Scene(root, 440, 440);
         window.setTitle("Super snake");
         window.setScene(menu);
-        window.getIcons().add(new Image("images/serpent-frontal-head.png"));
+        window.getIcons().add(new Image("images/icon.png"));
         window.setResizable(false);
         window.show();
     }

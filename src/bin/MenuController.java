@@ -7,7 +7,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MenuController {
-//button "start"  -- >>  Game.start();
     @FXML
     private TextField nameField;
 
