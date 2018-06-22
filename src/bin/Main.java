@@ -9,12 +9,14 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 static  Stage window;
+static  Scene menu;
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
         window = primaryStage;
-        window.setTitle("Super snake");
-        window.setScene(new Scene(root, 440, 440));
+        menu = new Scene(root, 440, 440);
+        window.setTitle("SuperMario snake");
+        window.setScene(menu);
         window.getIcons().add(new Image("images/serpent-frontal-head.png"));
         window.setResizable(false);
         window.show();
