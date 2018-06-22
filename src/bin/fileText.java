@@ -2,31 +2,30 @@ package bin;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class fileText {
 
-    private String[] text;
+    private ArrayList<String> text;
 
     fileText(String fileName)throws IOException{
         Scanner in = new Scanner(new FileReader(fileName));
-        this.text = new String[5];
-        int i = 0;
+        text = new ArrayList<>();
         while(in.hasNext()) {
-            text[i] = in.next();
-            i++;
+            text.add(in.nextLine());
         }
         in.close();
     }
 
-    public String[] getText(){
+    public ArrayList<String> getText(){
         return text;
     }
 
     public String getMeaning(int i){
         String result;
-        int a = text[i].indexOf("=");
-        result = text[i].substring(a+1);
+        int a = text.get(i).indexOf("=");
+        result = text.get(i).substring(a+1);
 
         return result;
     }
