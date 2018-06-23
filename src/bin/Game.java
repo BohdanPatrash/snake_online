@@ -1,8 +1,6 @@
 package bin;
 
 import javafx.animation.AnimationTimer;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -10,9 +8,11 @@ import javafx.scene.layout.Pane;
 
 public class Game implements Runnable {
     private Snake snake;
+    private Food food;
+    private Pane gameView;
 
     public Game() {
-        Pane gameView = new Pane();
+        gameView = new Pane();
         Scene gameScene = new Scene(gameView);
         gameView.setPrefSize(440, 440);
         GameField field = new GameField();
@@ -36,8 +36,8 @@ public class Game implements Runnable {
             event.consume();
         });
 
-
-        gameView.getChildren().addAll(field);
+        food = new Food();
+        gameView.getChildren().addAll(field, food);
         snake.show();
         Main.window.setScene(gameScene);
 
@@ -56,8 +56,15 @@ public class Game implements Runnable {
                 try {
                     Thread.sleep(200);
                 }catch (InterruptedException e){}
+                if(snake.getHead().getX()==food.getX()&&snake.getHead().getY()==food.getY()){
+                    snake.grow();
+                    gameView.getChildren().remove(food);
+                    food = new Food();
+                    gameView.getChildren().add(food);
+                }
             }
         };
+
         animator.start();
 
 

@@ -25,7 +25,13 @@ public class SnakeList {
     public void add_second(SquareDOT dot){
         head.setNext(dot);
         second.setPrevious(dot);
+        dot.setNext(second);
         second = dot;
+    }
+
+    public void delete_last(){
+        last.getPrevious().setNext(null);
+        last = last.getPrevious();
     }
 
     public int size() {

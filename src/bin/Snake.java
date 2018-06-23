@@ -42,11 +42,18 @@ public class Snake{
         body.getLast().setX(head.getX());
         body.getLast().setY(head.getY());
         body.add_second(body.getLast());
-        body.getLast().getPrevious().setNext(null);
-        body.setLast(body.getLast().getPrevious());
+        body.delete_last();
         head.setX(head.getX()+horizontal);
         head.setY(head.getY()+vertical);
         head.toFront();
+    }
+
+    public void grow(){
+        SquareDOT temp = new SquareDOT();
+        temp.setX(body.getLast().getX());
+        temp.setY(body.getLast().getY());
+        body.add(temp);
+        pane.getChildren().add(body.getLast());
     }
 
     public void up(){
@@ -75,5 +82,9 @@ public class Snake{
             vertical=0;
             horizontal=step;
         }
+    }
+
+    public SquareDOT getHead(){
+        return head;
     }
 }
