@@ -1,73 +1,32 @@
 package bin;
 
-import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import java.awt.*;
 
 
-public class Game implements Runnable {
+public class Game{
     private Snake snake;
     private Food food;
-    private Pane gameView;
+    private SnakeList body;
+    private SquareDOT body_dot;
+    private Button restart_button;
+    private Pane gameView = new Pane();
+    public Scene gameScene = new Scene(gameView);
 
     public Game() {
-        gameView = new Pane();
-        Scene gameScene = new Scene(gameView);
-        gameView.setPrefSize(440, 440);
-        GameField field = new GameField();
-        snake = new Snake(gameView);
-        gameScene.setOnKeyPressed(event -> {
-            if(event.getCode() == KeyCode.ESCAPE) {
-                Main.window.setScene(Main.menu);
-            }
-            else if(event.getCode() == KeyCode.UP){
-                snake.up();
-            }
-            else if(event.getCode() == KeyCode.LEFT){
-                snake.left();
-            }
-            else if(event.getCode() == KeyCode.DOWN){
-                snake.down();
-            }
-            else if(event.getCode() == KeyCode.RIGHT){
-                snake.right();
-            }
-            event.consume();
-        });
-
-        food = new Food();
-        gameView.getChildren().addAll(field, food);
-        snake.show();
+        gameView.setPrefSize(880, 880);
         Main.window.setScene(gameScene);
-
-
-
-    }
-
-    @Override
-    public void run() {
-        //--------------------gameloop------------------
-        AnimationTimer animator = new AnimationTimer() {
-
-            @Override
-            public void handle(long now) {
-                snake.move();
-                try {
-                    Thread.sleep(200);
-                }catch (InterruptedException e){}
-                if(snake.getHead().getX()==food.getX()&&snake.getHead().getY()==food.getY()){
-                    snake.grow();
-                    gameView.getChildren().remove(food);
-                    food = new Food();
-                    gameView.getChildren().add(food);
-                }
-            }
-        };
-
+        Main.window.setX(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2
+                -Main.window.getScene().getWidth()/2);
+        Main.window.setY(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2
+                -Main.window.getScene().getHeight()/2);
+        GameAnimation animator = new GameAnimation(snake, food, gameView, body, gameScene);
+        animator.start_this();
         animator.start();
 
-
-
     }
+
 }

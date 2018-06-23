@@ -14,12 +14,10 @@ public class Snake{
     private int horizontal = 0;
     private int vertical = -step;
 
-    public int getSize() {
-        return size;
-    }
+    public int getSize() {return body.size();}
 
     Snake(Pane pane){
-        body = new SnakeList(size);
+        body = new SnakeList();
         head = body.getHead();
         head.setFill(Color.web("#d44a0e"));
         for (int i = 2; i <size ; i++) {
@@ -31,8 +29,8 @@ public class Snake{
     public void show(){
         SquareDOT dot = body.getHead();
         for(int i = 0; i < body.size(); i++){
-            dot.setX(220);
-            dot.setY(220+i*dot.getHeight());
+            dot.setX(440);
+            dot.setY(440+i*dot.getHeight());
             pane.getChildren().addAll(dot);
             if(dot.hasNext()) dot = dot.getNext();
         }
@@ -83,6 +81,8 @@ public class Snake{
             horizontal=step;
         }
     }
+
+    public SnakeList getBody(){return body;}
 
     public SquareDOT getHead(){
         return head;

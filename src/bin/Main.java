@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -29,6 +30,8 @@ static Boolean sounds;
         menu = new Scene(root, 440, 440);
         window.setScene(menu);
         window.getIcons().add(new Image("images/icon.png"));
+        window.setX(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2-window.getScene().getWidth()/2);
+        window.setY(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2-window.getScene().getHeight()/2);
         window.setTitle("SuperMario snake");
         window.setResizable(false);
         window.show();

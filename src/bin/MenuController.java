@@ -39,7 +39,7 @@ public class MenuController{
     }
 
     public void StartBatonPress(){
-        new Game().run();
+        new Game();
     }
 
     public void OptionButtonPress() throws Exception{

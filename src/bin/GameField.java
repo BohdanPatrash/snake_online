@@ -8,11 +8,11 @@ import java.util.Random;
 
 public class GameField extends Rectangle {
     GameField(){
-        Random rand = new Random();
+
         setFill(Color.web("#a1854d"));
-        setWidth(1760);
-        setHeight(1760);
-        setLayoutX(-rand.nextInt(1320));
-        setLayoutY(-rand.nextInt(1320));
+        setWidth(880);
+        setHeight(880);
+        setStroke(Color.BLACK);
+
     }
 }

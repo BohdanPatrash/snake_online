@@ -1,14 +1,13 @@
 package bin;
 
 public class SnakeList {
-    private int size;
+    private int size=2;
     private SquareDOT head;
     private SquareDOT second;
     private SquareDOT last;
 
 
-    SnakeList(int size){
-        this.size = size;
+    SnakeList(){
         this.head = new SquareDOT();
         this.second = new SquareDOT();
         head.setNext(second);
@@ -20,6 +19,7 @@ public class SnakeList {
         dot.setPrevious(last);
         last.setNext(dot);
         last = dot;
+        size++;
     }
 
     public void add_second(SquareDOT dot){
