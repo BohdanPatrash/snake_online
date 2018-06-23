@@ -12,8 +12,8 @@
 
 <AnchorPane prefHeight="440.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bin.OptionsController">
    <children>
-      <Button layoutX="290.0" layoutY="400.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Save" underline="true" />
-      <Button layoutX="370.0" layoutY="400.0" mnemonicParsing="false" onAction="#BackButtonPress" prefHeight="25.0" prefWidth="57.0" text="Back" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="369.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="401.0" />
+      <Button layoutX="302.0" layoutY="407.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Save" underline="true" />
+      <Button layoutX="374.0" layoutY="407.0" mnemonicParsing="false" onAction="#BackButtonPress" prefHeight="25.0" prefWidth="57.0" text="Back" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="374.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="407.0" />
       <Pane prefHeight="200.0" prefWidth="220.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="240.0">
          <children>
             <RadioButton fx:id="WASD_RB" layoutX="24.0" layoutY="54.0" mnemonicParsing="false" text="W A S D">
@@ -37,5 +37,6 @@
             <CheckBox fx:id="Music" layoutX="24.0" layoutY="82.0" mnemonicParsing="false" text="Music" />
          </children>
       </Pane>
+      <Button layoutX="228.0" layoutY="407.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Reset" />
    </children>
 </AnchorPane>

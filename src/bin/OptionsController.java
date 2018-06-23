@@ -59,5 +59,8 @@ public class OptionsController{
         Main.window.setScene(Main.menu);
     }
 
+    public void SaveButtonPress(){
+
+    }
 
 }

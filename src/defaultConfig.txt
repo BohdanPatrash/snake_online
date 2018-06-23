@@ -1,5 +1,5 @@
 language=EN
-name=Mangeto
+name=player
 control=4arrows
 music=false
-sounds=true
+sounds=false
