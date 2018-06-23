@@ -1,0 +1,5 @@
+language=EN
+name=player
+control=4arrows
+music=false
+sounds=false
