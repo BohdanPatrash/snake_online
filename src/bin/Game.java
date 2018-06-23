@@ -10,21 +10,32 @@ import javafx.scene.layout.Pane;
 
 public class Game implements Runnable {
     private Snake snake;
-    private float interval = 1000.f/20;
 
     public Game() {
         Pane gameView = new Pane();
         Scene gameScene = new Scene(gameView);
         gameView.setPrefSize(440, 440);
         GameField field = new GameField();
-
+        snake = new Snake(gameView);
         gameScene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
+            if(event.getCode() == KeyCode.ESCAPE) {
                 Main.window.setScene(Main.menu);
+            }
+            else if(event.getCode() == KeyCode.UP){
+                snake.up();
+            }
+            else if(event.getCode() == KeyCode.LEFT){
+                snake.left();
+            }
+            else if(event.getCode() == KeyCode.DOWN){
+                snake.down();
+            }
+            else if(event.getCode() == KeyCode.RIGHT){
+                snake.right();
             }
             event.consume();
         });
-        snake = new Snake(gameView);
+
 
         gameView.getChildren().addAll(field);
         snake.show();
@@ -44,8 +55,7 @@ public class Game implements Runnable {
                 snake.move();
                 try {
                     Thread.sleep(200);
-                }catch (InterruptedException e){
-                }
+                }catch (InterruptedException e){}
             }
         };
         animator.start();
