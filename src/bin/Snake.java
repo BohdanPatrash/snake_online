@@ -10,6 +10,8 @@ public class Snake{
     private int size = 4;
     private SnakeList body;
     private SquareDOT head;
+    private double x = head.getX();
+    private double y = head.getY();
     private int step = 11;
     private int horizontal = 0;
     private int vertical = -step;
@@ -52,6 +54,27 @@ public class Snake{
         temp.setY(body.getLast().getY());
         body.add(temp);
         pane.getChildren().add(body.getLast());
+    }
+
+    public boolean eats(Food food){
+        if(getHead().getX()==food.getX()&&getHead().getY()==food.getY()){
+            grow();
+            return true;
+        }else return false;
+    }
+
+    public boolean hits_border(){
+        return (x<0||x>880||y<0|| y>880);
+    }
+
+    public boolean hit_self(){
+        SquareDOT body_dot = body.getLast();
+        for (int i = 0; i <body.size() ; i++) {
+            if(body_dot.getX()==x&&body_dot.getY()==y){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void up(){

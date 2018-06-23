@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-
 import java.awt.*;
 
 public class GameAnimation extends AnimationTimer {
@@ -20,40 +19,35 @@ public class GameAnimation extends AnimationTimer {
     private Button restart_button;
     private Scene gameScene;
 
-    GameAnimation(Snake snake, Food food, Pane gameView, SnakeList body, Scene gameScene){
-        this.snake = snake;
-        this.food = food;
+    GameAnimation(Pane gameView, Scene gameScene){
         this.gameView = gameView;
-        this.body = body;
         this.gameScene = gameScene;
     }
 
     @Override
     public void handle(long now) {
         snake.move();
-        double x = snake.getHead().getX();
-        double y = snake.getHead().getY();
+
         try {
             Thread.sleep(200);
         }catch (InterruptedException e){}
-        if(snake.getHead().getX()==food.getX()&&snake.getHead().getY()==food.getY()){
-            snake.grow();
+
+        if(snake.eats(food)){
             gameView.getChildren().remove(food);
             food = new Food();
             gameView.getChildren().add(food);
         }
-        if(x<0||x>880||y<0||y>880){
+
+        if(snake.hits_border()){
             loose();
             stop();
         }
-        body_dot = body.getLast();
-        for (int i = 0; i <snake.getSize(); i++) {
-            if(body_dot.getX()==x&&body_dot.getY()==y){
-                loose();
-                stop();
-            }
-            body_dot = body_dot.getPrevious();
+
+        if(snake.hit_self()){
+            loose();
+            stop();
         }
+
     }
 
     private void loose() {
