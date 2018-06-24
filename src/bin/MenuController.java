@@ -60,7 +60,7 @@ public class MenuController{
 
 
     public void StartBatonPress()throws  IOException{
-        Music.PlayMusic("src/SweetDreams.wav");
+        //Music.PlayMusic("src/SweetDreams.wav");
         saveName();
         new Game();
     }
@@ -71,7 +71,7 @@ public class MenuController{
             ArrayList<String> Config = ft.getText();
 
             Main.name = nameField.getText();
-            Config.set(0, Config.get(0).substring(0,Config.get(1).indexOf("=")+1) + nameField.getText());
+            Config.set(0, Config.get(0).substring(0,Config.get(0).indexOf("=")+1) + nameField.getText());
 
             PrintWriter writer = new PrintWriter("src/config.txt", "UTF-8");
             while (!Config.isEmpty()){
