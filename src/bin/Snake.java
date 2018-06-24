@@ -7,11 +7,11 @@ import javafx.scene.paint.Color;
 
 public class Snake{
     private Pane pane;
-    private int size = 4;
+    private int size = 20;
     private SnakeList body;
     private SquareDOT head;
-    private double x = head.getX();
-    private double y = head.getY();
+    private double x;
+    private double y;
     private int step = 11;
     private int horizontal = 0;
     private int vertical = -step;
@@ -43,8 +43,10 @@ public class Snake{
         body.getLast().setY(head.getY());
         body.add_second(body.getLast());
         body.delete_last();
-        head.setX(head.getX()+horizontal);
-        head.setY(head.getY()+vertical);
+        x = head.getX()+horizontal;
+        y = head.getY()+vertical;
+        head.setX(x);
+        head.setY(y);
         head.toFront();
     }
 
@@ -56,7 +58,7 @@ public class Snake{
         pane.getChildren().add(body.getLast());
     }
 
-    public boolean eats(Food food){
+    public boolean eats(Apple food){
         if(getHead().getX()==food.getX()&&getHead().getY()==food.getY()){
             grow();
             return true;
@@ -73,6 +75,7 @@ public class Snake{
             if(body_dot.getX()==x&&body_dot.getY()==y){
                 return true;
             }
+            body_dot = body_dot.getPrevious();
         }
         return false;
     }

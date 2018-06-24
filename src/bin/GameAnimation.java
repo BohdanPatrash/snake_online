@@ -12,7 +12,7 @@ import java.awt.*;
 public class GameAnimation extends AnimationTimer {
 
     private Snake snake;
-    private Food food;
+    private Apple food;
     private Pane gameView;
     private SnakeList body;
     private SquareDOT body_dot;
@@ -27,14 +27,13 @@ public class GameAnimation extends AnimationTimer {
     @Override
     public void handle(long now) {
         snake.move();
-
         try {
             Thread.sleep(200);
         }catch (InterruptedException e){}
 
         if(snake.eats(food)){
             gameView.getChildren().remove(food);
-            food = new Food();
+            food = new Apple();
             gameView.getChildren().add(food);
         }
 
@@ -78,7 +77,7 @@ public class GameAnimation extends AnimationTimer {
         GameField field = new GameField();
         snake = new Snake(gameView);
         body = snake.getBody();
-        food = new Food();
+        food = new Apple();
         gameView.getChildren().addAll(field, food);
         snake.show();
         gameScene.setOnKeyPressed(event -> {

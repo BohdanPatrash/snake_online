@@ -5,8 +5,8 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
 
-public class Food extends Rectangle{
-    Food(){
+public class Apple extends Rectangle{
+    Apple(){
         Random rand = new Random();
         setX(rand.nextInt(80)*11);
         setY(rand.nextInt(80)*11);
