@@ -1,5 +1,4 @@
-language=EN
-name=player
+name=Mangeto
 control=4arrows
 music=true
 sounds=true
