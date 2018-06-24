@@ -31,7 +31,7 @@ static Boolean sounds;
         window.getIcons().add(new Image("images/icon.png"));
         window.setX(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2-window.getScene().getWidth()/2);
         window.setY(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2-window.getScene().getHeight()/2);
-        window.setTitle("SuperMario snake");
+        window.setTitle("Snake Royale");
         window.setResizable(false);
         window.show();
     }

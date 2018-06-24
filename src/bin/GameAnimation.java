@@ -3,6 +3,7 @@ package bin;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -15,6 +16,8 @@ public class GameAnimation extends AnimationTimer {
     private Apple food;
     private Pane gameView;
     private Scene gameScene;
+    private Label score;
+    private long lastUpdate=0;
 
     GameAnimation(Pane gameView, Scene gameScene){
         this.gameView = gameView;
@@ -23,26 +26,25 @@ public class GameAnimation extends AnimationTimer {
 
     @Override
     public void handle(long now) {
-        snake.move();
+        if(now - lastUpdate >= 200_000_000) {
+            snake.move();
 
-        try {
-            Thread.sleep(200);
-        }catch (InterruptedException e){}
+            if (snake.eats(food)) {
+                gameView.getChildren().remove(food);
+                food = new Apple();
+                gameView.getChildren().add(food);
+                score.setText("SCORE: " + (snake.getSize() - 5));
+            }
 
-        if(snake.eats(food)){
-            gameView.getChildren().remove(food);
-            food = new Apple();
-            gameView.getChildren().add(food);
+            if (snake.hits_border()) {
+                loose();
+                stop();
+            } else if (snake.hit_self()) {
+                loose();
+                stop();
+            }
+            lastUpdate = now;
         }
-
-        if(snake.hits_border()){
-            loose();
-            stop();
-        }else if(snake.hit_self()){
-            loose();
-            stop();
-        }
-
     }
 
     private void loose() {
@@ -90,10 +92,12 @@ public class GameAnimation extends AnimationTimer {
     }
 
     public void start_this() {
-
+        score = new Label("SCORE: "+0);
+        score.setLayoutX(700);
+        score.setLayoutY(30);
         snake = new Snake(gameView);
         food = new Apple();
-        gameView.getChildren().addAll(new SnakeBackground(), new GameField(), food);
+        gameView.getChildren().addAll(new SnakeBackground(), new GameField(), food, score);
         snake.show();
         gameScene.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ESCAPE) {
