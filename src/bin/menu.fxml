@@ -18,12 +18,12 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button layoutX="125.0" layoutY="150.0" mnemonicParsing="false" onAction="#StartBatonPress" prefHeight="40.0" prefWidth="190.0" text="START">
+      <Button fx:id="StartButton" layoutX="125.0" layoutY="150.0" mnemonicParsing="false" onAction="#StartBatonPress" prefHeight="40.0" prefWidth="190.0" text="START">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <TextField alignment="CENTER" layoutX="125.0" layoutY="115.0" prefHeight="20.0" prefWidth="190.0" />
+      <TextField fx:id="nameField" alignment="CENTER" layoutX="125.0" layoutY="115.0" prefHeight="20.0" prefWidth="190.0" />
       <Label layoutX="165.0" layoutY="75.0" prefHeight="40.0" prefWidth="110.0" text="Your name">
          <font>
             <Font size="20.0" />

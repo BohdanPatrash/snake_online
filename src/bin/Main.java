@@ -38,7 +38,7 @@ static Boolean sounds;
     }
 
     private static void getConfiguration() throws IOException{
-        fileText config = new fileText("src/bin/config.txt");
+        fileText config = new fileText("src/config.txt");
         language = config.getMeaning(0);
         name = config.getMeaning(1);
         controller = config.getMeaning(2);
