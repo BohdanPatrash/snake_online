@@ -16,7 +16,6 @@ public class Main extends Application {
 
 static Stage window;
 static Scene menu;
-static String language;
 static String name;
 static String controller;
 static Boolean music;
@@ -39,11 +38,10 @@ static Boolean sounds;
 
     private static void getConfiguration() throws IOException{
         fileText config = new fileText("src/config.txt");
-        language = config.getMeaning(0);
-        name = config.getMeaning(1);
-        controller = config.getMeaning(2);
-        music = Boolean.valueOf(config.getMeaning(3));
-        sounds = Boolean.valueOf(config.getMeaning(4));
+        name = config.getMeaning(0);
+        controller = config.getMeaning(1);
+        music = Boolean.valueOf(config.getMeaning(2));
+        sounds = Boolean.valueOf(config.getMeaning(3));
     }
 
     public static void main(String[] args) throws IOException{

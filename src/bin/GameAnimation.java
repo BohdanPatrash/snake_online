@@ -77,6 +77,8 @@ public class GameAnimation extends AnimationTimer {
 
         menu_button.setOnMousePressed(event -> exit_to_menu());
 
+        Music.StopMusic();
+
         gameView.getChildren().addAll(new GameField(),gameover, restart_button, menu_button);
     }
 

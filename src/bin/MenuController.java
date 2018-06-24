@@ -26,6 +26,9 @@ public class MenuController{
     private Button ExitButton;
 
     @FXML
+    private Button OptionButton;
+
+    @FXML
     public void initialize() throws Exception{
         nameField.setText(Main.name);
         OptionsScene = new Scene(FXMLLoader.load(getClass().getResource("Options.fxml")), 440, 440);
@@ -37,6 +40,10 @@ public class MenuController{
         });
         StartButton.setOnMouseEntered(event -> StartButton.setUnderline(true));
         StartButton.setOnMouseExited(event -> StartButton.setUnderline(false));
+
+        OptionButton.setOnMouseEntered(event -> OptionButton.setUnderline(true));
+        OptionButton.setOnMouseExited(event -> OptionButton.setUnderline(false));
+
         ExitButton.setOnMouseEntered(event -> {
             ExitButton.setText("NOOOO");
             ExitButton.setTextFill(Color.RED);
@@ -53,6 +60,7 @@ public class MenuController{
 
 
     public void StartBatonPress()throws  IOException{
+        Music.PlayMusic("src/SweetDreams.wav");
         saveName();
         new Game();
     }
@@ -63,7 +71,7 @@ public class MenuController{
             ArrayList<String> Config = ft.getText();
 
             Main.name = nameField.getText();
-            Config.set(1, Config.get(1).substring(0,Config.get(1).indexOf("=")+1) + nameField.getText());
+            Config.set(0, Config.get(0).substring(0,Config.get(1).indexOf("=")+1) + nameField.getText());
 
             PrintWriter writer = new PrintWriter("src/config.txt", "UTF-8");
             while (!Config.isEmpty()){

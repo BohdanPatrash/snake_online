@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -7,7 +8,7 @@
    <children>
       <Button layoutX="302.0" layoutY="407.0" mnemonicParsing="false" onAction="#SaveButtonPress" prefHeight="25.0" prefWidth="57.0" text="Save" underline="true" />
       <Button layoutX="374.0" layoutY="407.0" mnemonicParsing="false" onAction="#BackButtonPress" prefHeight="25.0" prefWidth="57.0" text="Back" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="374.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="407.0" />
-      <Pane prefHeight="200.0" prefWidth="220.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="240.0">
+      <Pane layoutX="220.0" layoutY="200.0" prefHeight="200.0" prefWidth="220.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="40.0">
          <children>
             <RadioButton fx:id="WASD_RB" layoutX="24.0" layoutY="54.0" mnemonicParsing="false" text="W A S D">
                <toggleGroup>
@@ -20,16 +21,14 @@
          </children></Pane>
       <Pane layoutX="220.0" prefHeight="200.0" prefWidth="220.0" style="-fx-border-color: black;">
          <children>
-            <Label layoutX="24.0" layoutY="24.0" text="Language" />
-            <ChoiceBox layoutX="24.0" layoutY="54.0" prefWidth="150.0" />
-         </children>
-      </Pane>
-      <Pane layoutY="200.0" prefHeight="200.0" prefWidth="220.0" style="-fx-border-color: black;">
-         <children>
-            <CheckBox fx:id="Sounds" layoutX="24.0" layoutY="54.0" mnemonicParsing="false" text="Sounds" />
+            <CheckBox fx:id="Sounds" layoutX="24.0" layoutY="23.0" mnemonicParsing="false" text="Sounds" />
             <CheckBox fx:id="Music" layoutX="24.0" layoutY="82.0" mnemonicParsing="false" text="Music" />
+            <Slider layoutX="24.0" layoutY="54.0" />
+            <Slider layoutX="24.0" layoutY="110.0" />
          </children>
       </Pane>
       <Button layoutX="228.0" layoutY="407.0" mnemonicParsing="false" onAction="#ResetButtonPress" prefHeight="25.0" prefWidth="57.0" text="Reset" />
+      <Pane prefHeight="200.0" prefWidth="220.0" style="-fx-border-color: black;" />
+      <Pane layoutY="200.0" prefHeight="200.0" prefWidth="220.0" style="-fx-border-color: black;" />
    </children>
 </AnchorPane>

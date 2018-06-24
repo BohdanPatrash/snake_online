@@ -76,9 +76,9 @@ public class OptionsController{
         else if (Ar2_RB.isSelected()) control = "2arrows";
         else control = "4arrows";
 
-        Config.set(2, Config.get(2).substring(0,Config.get(2).indexOf("=")+1) + control);
-        Config.set(3, Config.get(3).substring(0,Config.get(3).indexOf("=")+1) + Music.isSelected());
-        Config.set(4, Config.get(4).substring(0,Config.get(4).indexOf("=")+1) + Sounds.isSelected());
+        Config.set(1, Config.get(1).substring(0,Config.get(1).indexOf("=")+1) + control);
+        Config.set(2, Config.get(2).substring(0,Config.get(2).indexOf("=")+1) + Music.isSelected());
+        Config.set(3, Config.get(3).substring(0,Config.get(3).indexOf("=")+1) + Sounds.isSelected());
 
         Main.controller = control;
         Main.sounds = Sounds.isSelected();
