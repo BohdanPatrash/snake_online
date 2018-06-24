@@ -58,9 +58,9 @@ public class Snake{
         pane.getChildren().add(body.getLast());
     }
 
-    public boolean eats(Apple food){
-        if(getHead().getX()==food.getX()&&getHead().getY()==food.getY()){
-            grow();
+    public boolean eats(Food food){
+        if(x+5.5 == food.getCenterX() && y+5.5 == food.getCenterY()){
+            food.causes(this);
             return true;
         }else return false;
     }
