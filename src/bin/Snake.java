@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 
 public class Snake{
     private Pane pane;
-    private int size = 20;
+    private int size = 5;
     private SnakeList body;
     private SquareDOT head;
     private double x;
@@ -31,8 +31,8 @@ public class Snake{
     public void show(){
         SquareDOT dot = body.getHead();
         for(int i = 0; i < body.size(); i++){
-            dot.setX(440);
-            dot.setY(440+i*dot.getHeight());
+            dot.setX(Game.x/2);
+            dot.setY(Game.y/2+i*dot.getHeight());
             pane.getChildren().addAll(dot);
             if(dot.hasNext()) dot = dot.getNext();
         }
@@ -66,7 +66,7 @@ public class Snake{
     }
 
     public boolean hits_border(){
-        return (x<0||x>880||y<0|| y>880);
+        return (x<0||x>Game.x-11||y<0|| y>Game.y-11);
     }
 
     public boolean hit_self(){

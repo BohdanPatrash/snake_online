@@ -14,9 +14,6 @@ public class GameAnimation extends AnimationTimer {
     private Snake snake;
     private Apple food;
     private Pane gameView;
-    private SnakeList body;
-    private SquareDOT body_dot;
-    private Button restart_button;
     private Scene gameScene;
 
     GameAnimation(Pane gameView, Scene gameScene){
@@ -51,21 +48,46 @@ public class GameAnimation extends AnimationTimer {
 
     private void loose() {
         gameView.getChildren().removeAll();
+        int image_width = 250;
+        int image_height = 200;
         ImageView gameover = new ImageView(new Image("images/game_over.png",
                 250,
                 200,
                 false,
                 false));
-        gameover.setLayoutX(315);
-        gameover.setLayoutY(315);
-        this.restart_button = new Button("RESTART");
-        restart_button.setLayoutX(410);
-        restart_button.setLayoutY(525);
+        gameover.setLayoutX(Game.x/2-image_width/2);
+        gameover.setLayoutY(Game.y/2-image_height);
+        Button restart_button = new Button("RESTART");
+        restart_button.setPrefSize(90,35);
+        restart_button.setLayoutX(Game.x/2-restart_button.getPrefWidth()/2);
+        restart_button.setLayoutY(Game.y/2+10);
         restart_button.setStyle("-fx-background-color: #917337");
         restart_button.setScaleX(1.5);
         restart_button.setScaleY(1.5);
+
         restart_button.setOnMousePressed(event -> restart());
-        gameView.getChildren().addAll(new GameField(),gameover, restart_button);
+
+        Button menu_button = new Button("MENU");
+        menu_button.setPrefSize(90,35);
+        menu_button.setLayoutX(Game.x/2-menu_button.getPrefWidth()/2);
+        menu_button.setLayoutY(Game.y/2+40+menu_button.getPrefHeight());
+        menu_button.setStyle("-fx-background-color: #917337");
+        menu_button.setScaleX(1.5);
+        menu_button.setScaleY(1.5);
+
+        menu_button.setOnMousePressed(event -> exit_to_menu());
+
+        gameView.getChildren().addAll(new GameField(),gameover, restart_button, menu_button);
+    }
+
+    private void exit_to_menu() {
+        Main.window.setScene(Main.menu);
+        Main.window.setX(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2
+                -Main.window.getScene().getWidth()/2);
+        Main.window.setY(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2
+                -Main.window.getScene().getHeight()/2);
+        gameView.getChildren().removeAll();
+        stop();
     }
 
     private void restart(){
@@ -76,19 +98,12 @@ public class GameAnimation extends AnimationTimer {
     public void start_this() {
         GameField field = new GameField();
         snake = new Snake(gameView);
-        body = snake.getBody();
         food = new Apple();
         gameView.getChildren().addAll(field, food);
         snake.show();
         gameScene.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ESCAPE) {
-                Main.window.setScene(Main.menu);
-                Main.window.setX(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2
-                        -Main.window.getScene().getWidth()/2);
-                Main.window.setY(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2
-                        -Main.window.getScene().getHeight()/2);
-                gameView.getChildren().removeAll();
-                stop();
+                exit_to_menu();
             }
             else if(event.getCode() == KeyCode.UP){
                 snake.up();
