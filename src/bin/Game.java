@@ -8,8 +8,8 @@ import java.awt.*;
 public class Game{
     private Pane gameView = new Pane();
     public Scene gameScene = new Scene(gameView);
-    public static int x = 660;
-    public static int y = 660;
+    public static int x = 850;
+    public static int y = 700;
     public Game() {
         gameView.setPrefSize(x, y);
         Main.window.setScene(gameScene);

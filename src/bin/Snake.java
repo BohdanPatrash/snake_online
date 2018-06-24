@@ -31,8 +31,8 @@ public class Snake{
     public void show(){
         SquareDOT dot = body.getHead();
         for(int i = 0; i < body.size(); i++){
-            dot.setX(Game.x/2);
-            dot.setY(Game.y/2+i*dot.getHeight());
+            dot.setX(GameField.x/2);
+            dot.setY(GameField.y/2+i*dot.getHeight());
             pane.getChildren().addAll(dot);
             if(dot.hasNext()) dot = dot.getNext();
         }
@@ -66,7 +66,10 @@ public class Snake{
     }
 
     public boolean hits_border(){
-        return (x<0||x>Game.x-11||y<0|| y>Game.y-11);
+        return (x < GameField.layout_x ||
+                x > GameField.x-11 ||
+                y < GameField.layout_y ||
+                y > GameField.y-11);
     }
 
     public boolean hit_self(){
