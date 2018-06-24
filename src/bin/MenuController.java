@@ -70,7 +70,6 @@ public class MenuController{
         if (!Main.name.equals(nameField.getText())){
             fileText ft = new fileText("src/config.txt");
             ArrayList<String> Config = ft.getText();
-
             Main.name = nameField.getText();
             Config.set(0, Config.get(0).substring(0,Config.get(0).indexOf("=")+1) + nameField.getText());
             PrintWriter writer = new PrintWriter("src/config.txt", "UTF-8");
