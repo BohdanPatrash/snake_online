@@ -1,4 +1,4 @@
-package bin;
+package bin.snake;
 
 public class SnakeList {
     private int size=2;

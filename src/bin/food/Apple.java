@@ -1,5 +1,6 @@
-package bin;
+package bin.food;
 
+import bin.snake.Snake;
 import javafx.scene.paint.Color;
 
 public class Apple extends Food{

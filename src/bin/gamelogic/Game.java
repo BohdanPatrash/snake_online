@@ -1,5 +1,6 @@
-package bin;
+package bin.gamelogic;
 
+import bin.Main;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import java.awt.*;

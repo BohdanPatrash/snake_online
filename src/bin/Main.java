@@ -14,12 +14,12 @@ import java.util.Scanner;
 
 public class Main extends Application {
 
-static Stage window;
-static Scene menu;
-static String name;
-static String controller;
-static Boolean music;
-static Boolean sounds;
+public static Stage window;
+public static Scene menu;
+public static String name;
+public static String controller;
+public static Boolean music;
+public static Boolean sounds;
 
 
     @Override

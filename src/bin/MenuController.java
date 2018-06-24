@@ -1,5 +1,6 @@
 package bin;
 
+import bin.gamelogic.Game;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -60,7 +61,7 @@ public class MenuController{
 
 
     public void StartBatonPress()throws  IOException{
-        Music.PlayMusic("src/SweetDreams.wav");
+        //Music.PlayMusic("src/media/SweetDreams.wav");
         saveName();
         new Game();
     }

@@ -1,5 +1,8 @@
-package bin;
+package bin.gamelogic;
 
+import bin.food.Apple;
+import bin.Main;
+import bin.snake.Snake;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

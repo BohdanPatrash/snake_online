@@ -1,4 +1,4 @@
-package bin;
+package bin.gamelogic;
 
 
 import javafx.scene.paint.Color;
