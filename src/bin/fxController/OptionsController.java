@@ -66,7 +66,7 @@ public class OptionsController{
         UAitem.setGraphic(UAflag);
         languageMB.getItems().add(UAitem);
 
-        ImageView ENflag = new ImageView(new Image("images/EN.png"));
+        ImageView ENflag = new ImageView(new Image("images/EN.png", 20, 14, false,false));
         ENitem.setGraphic(ENflag);
         languageMB.getItems().add(ENitem);
 
@@ -96,7 +96,7 @@ public class OptionsController{
         takeValues();
 
         ImageView UAflag1 = new ImageView(new Image("images/UA.png"));
-        ImageView ENflag1 = new ImageView(new Image("images/EN.png"));
+        ImageView ENflag1 = new ImageView(new Image("images/EN.png", 20,14,false,false));
         ImageView PLflag1 = new ImageView(new Image("images/PL.png"));
         ImageView RUflag1 = new ImageView(new Image("images/RU.png"));
         UAitem.setOnAction(event -> {
@@ -233,14 +233,5 @@ public class OptionsController{
         masterVolume.setValue(100);
         musicVolume.setValue(100);
     }
-
-//    public void choiseBoxChoosen() {
-//        if (Main.language.equals(languageCB.getValue())) {
-//        }
-//    }
-
-//    private String getAbbreviated(String language){
-//
-//    }
 
 }
