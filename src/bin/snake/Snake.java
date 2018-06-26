@@ -72,9 +72,9 @@ public class Snake{
     }
 
     public boolean hits_border(){
-        return (x < GameField.layout_x ||
+        return (x < GameField.layoutX ||
                 x > GameField.x-11 ||
-                y < GameField.layout_y ||
+                y < GameField.layoutY ||
                 y > GameField.y-11);
     }
 

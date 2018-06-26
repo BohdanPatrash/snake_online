@@ -4,13 +4,20 @@ import bin.Main;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import java.awt.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Scanner;
 
 
 public class Game{
     private Pane gameView = new Pane();
-    public Scene gameScene = new Scene(gameView);
+    private GameAnimation animator;
+    private Scene gameScene = new Scene(gameView);
     public static int x = 850;
     public static int y = 700;
+
     public Game() {
         gameView.setPrefSize(x, y);
         Main.window.setScene(gameScene);
@@ -18,10 +25,11 @@ public class Game{
                 -Main.window.getScene().getWidth()/2);
         Main.window.setY(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2
                 -Main.window.getScene().getHeight()/2);
-        GameAnimation animator = new GameAnimation(gameView, gameScene);
-        animator.start_this();
+        animator = new GameAnimation(gameView, gameScene);
+        animator.startThis();
         animator.start();
 
     }
+
 
 }

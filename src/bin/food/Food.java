@@ -9,8 +9,8 @@ import java.util.Random;
 public abstract class Food extends Circle{
     Food(){
         Random rand = new Random();
-        setCenterX(rand.nextInt(GameField.width/11)*11+5.5+GameField.layout_x);
-        setCenterY(rand.nextInt(GameField.height/11)*11+5.5+GameField.layout_y);
+        setCenterX(rand.nextInt(GameField.width/11)*11+5.5+GameField.layoutX);
+        setCenterY(rand.nextInt(GameField.height/11)*11+5.5+GameField.layoutY);
         setRadius(5.5);
         setStroke(Color.BLACK);
         apearence();

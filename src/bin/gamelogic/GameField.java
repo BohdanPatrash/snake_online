@@ -5,16 +5,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class GameField extends Rectangle {
-    public static int layout_x = 22;
-    public static int layout_y = 22;
+    public static int layoutX = 22;
+    public static int layoutY = 22;
     public static int width = 660;
     public static int height = 660;
-    public static int x = width + layout_x;
-    public static int y = height + layout_y;
+    public static int x = width + layoutX;
+    public static int y = height + layoutY;
 
     GameField(){
-        setX(layout_x);
-        setY(layout_y);
+        setX(layoutX);
+        setY(layoutY);
         setFill(Color.web("#a1854d"));
         setWidth(width);
         setHeight(height);

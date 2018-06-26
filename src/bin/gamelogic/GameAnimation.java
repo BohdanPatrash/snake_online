@@ -12,26 +12,43 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import java.awt.Toolkit;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 
 public class GameAnimation extends AnimationTimer {
-
+    private double[] output = new double[5];
+    private double[] input = new double[5];
     private Snake snake;
     private Apple food;
     private Pane gameView;
     private Scene gameScene;
     private Label score;
     private long lastUpdate=0;
+    private Socket socket;
+    private DataInputStream inStream;
+    private DataOutputStream outStream;
 
     GameAnimation(Pane gameView, Scene gameScene){
         this.gameView = gameView;
         this.gameScene = gameScene;
+        serverConnecting();
+        try{
+            inStream = new DataInputStream(socket.getInputStream());
+            outStream = new DataOutputStream(socket.getOutputStream());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void handle(long now) {
         if(now - lastUpdate >= 200_000_000) {
             snake.move();
-
+            output[0]= snake.getHead().getX();
+            output[1]= snake.getHead().getY();
+            dataOutput();
             if (snake.eats(food)) {
                 gameView.getChildren().remove(food);
                 food = new Apple();
@@ -51,7 +68,7 @@ public class GameAnimation extends AnimationTimer {
     }
 
     private void loose() {
-        gameView.getChildren().removeAll();
+        gameView.getChildren().clear();
         stop();
         int image_width = 250;
         int image_height = 200;
@@ -69,7 +86,7 @@ public class GameAnimation extends AnimationTimer {
         restart_button.setStyle("-fx-background-color: #917337");
         restart_button.setScaleX(1.5);
         restart_button.setScaleY(1.5);
-        restart_button.setOnMousePressed(event -> start_this());
+        restart_button.setOnMousePressed(event -> startThis());
 
         Button menu_button = new Button("MENU");
         menu_button.setPrefSize(90,35);
@@ -78,12 +95,12 @@ public class GameAnimation extends AnimationTimer {
         menu_button.setStyle("-fx-background-color: #917337");
         menu_button.setScaleX(1.5);
         menu_button.setScaleY(1.5);
-        menu_button.setOnMousePressed(event -> exit_to_menu());
+        menu_button.setOnMousePressed(event -> exitToMenu());
 
         gameView.getChildren().addAll(new SnakeBackground(), new GameField(),gameover, restart_button, menu_button);
     }
 
-    private void exit_to_menu() {
+    private void exitToMenu() {
         Main.window.setScene(Main.menu);
         Main.window.setX(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2
                 -Main.window.getScene().getWidth()/2);
@@ -94,7 +111,7 @@ public class GameAnimation extends AnimationTimer {
 
     }
 
-    public void start_this() {
+    public void startThis() {
         score = new Label("SCORE: "+0);
         score.setLayoutX(700);
         score.setLayoutY(30);
@@ -104,7 +121,7 @@ public class GameAnimation extends AnimationTimer {
         snake.show();
         gameScene.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ESCAPE) {
-                exit_to_menu();
+                exitToMenu();
                 event.consume();
             }
             else if(event.getCode() == KeyCode.UP){
@@ -125,5 +142,29 @@ public class GameAnimation extends AnimationTimer {
             }
         });
         start();
+    }
+
+    public double[] getOutput(){
+        return output;
+    }
+
+    private void dataOutput(){
+        try {
+            outStream.writeDouble(getOutput()[0]);
+            outStream.writeDouble(getOutput()[1]);
+            outStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void serverConnecting(){
+        try {
+            socket = new Socket("localhost", 3355);
+            System.out.println("Client connected to socket");
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 }
