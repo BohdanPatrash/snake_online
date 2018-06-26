@@ -56,28 +56,15 @@ public class OptionsController{
 
     @FXML
     public void initialize()throws IOException{
+        languageMB.setMinWidth(135);
+        ex0Label.setText("");
+        messageLable.setVisible(false);
+        setLanguageMenuButton();
+        setTexts();
+        takeValues();
+    }
 
-        MenuItem ENitem = new MenuItem("English");
-        MenuItem PLitem = new MenuItem("Polski");
-        MenuItem UAitem = new MenuItem("Українська");
-        MenuItem RUitem = new MenuItem("Русский");
-
-        ImageView UAflag = new ImageView(new Image("images/UA.png"));
-        UAitem.setGraphic(UAflag);
-        languageMB.getItems().add(UAitem);
-
-        ImageView ENflag = new ImageView(new Image("images/EN.png", 20, 14, false,false));
-        ENitem.setGraphic(ENflag);
-        languageMB.getItems().add(ENitem);
-
-        ImageView PLflag = new ImageView(new Image("images/PL.png"));
-        PLitem.setGraphic(PLflag);
-        languageMB.getItems().add(PLitem);
-
-        ImageView RUflag = new ImageView(new Image("images/RU.png"));
-        RUitem.setGraphic(RUflag);
-        languageMB.getItems().add(RUitem);
-
+    private void setTexts(){
         skinsLable.setText(Main.languageProperties.getProperty("skin"));
         soundLable.setText(Main.languageProperties.getProperty("sound"));
         messageLable.setText(Main.languageProperties.getProperty("saved"));
@@ -90,44 +77,63 @@ public class OptionsController{
         musicVolumeLable.setText(Main.languageProperties.getProperty("musicVolumeEx"));
         Ar2_RB.setText(2 + " " + Main.languageProperties.getProperty("arrows"));
         Ar4_RB.setText(4 + " " + Main.languageProperties.getProperty("arrows"));
+    }
 
-        messageLable.setVisible(false);
-        ex0Label.setVisible(false);
-        takeValues();
-
-        ImageView UAflag1 = new ImageView(new Image("images/UA.png"));
+    private void setLanguageMenuButton(){
+        ImageView UAflag1 = new ImageView(new Image("images/UA.png", 20,14,false,false));
         ImageView ENflag1 = new ImageView(new Image("images/EN.png", 20,14,false,false));
-        ImageView PLflag1 = new ImageView(new Image("images/PL.png"));
-        ImageView RUflag1 = new ImageView(new Image("images/RU.png"));
+        ImageView PLflag1 = new ImageView(new Image("images/PL.png", 20,14,false,false));
+        ImageView RUflag1 = new ImageView(new Image("images/RU.png", 20,14,false,false));
+
+        MenuItem ENitem = new MenuItem("English");
+        MenuItem PLitem = new MenuItem("Polski");
+        MenuItem UAitem = new MenuItem("Українська");
+        MenuItem RUitem = new MenuItem("Русский");
+
+        ImageView UAflag = new ImageView(new Image("images/UA.png", 20,14,false,false));
+        UAitem.setGraphic(UAflag);
+        languageMB.getItems().add(UAitem);
+
+        ImageView ENflag = new ImageView(new Image("images/EN.png", 20, 14, false,false));
+        ENitem.setGraphic(ENflag);
+        languageMB.getItems().add(ENitem);
+
+        ImageView PLflag = new ImageView(new Image("images/PL.png", 20,14,false,false));
+        PLitem.setGraphic(PLflag);
+        languageMB.getItems().add(PLitem);
+
+        ImageView RUflag = new ImageView(new Image("images/RU.png", 20,14,false,false));
+        RUitem.setGraphic(RUflag);
+        languageMB.getItems().add(RUitem);
+
         UAitem.setOnAction(event -> {
             languageMB.setGraphic(UAflag1);
             languageMB.setText("Українська");
             changeLanguageConfiguration("UA");
-            if (!Main.language.equals("UA"))
-                visibleLable(ex0Label, "Будь ласка, \nперезапустіть гру", 2);
+            if (!Main.language.equals("UA")) ex0Label.setText("Будь ласка, \nперезапустіть гру");
+            else ex0Label.setText("");
         });
         PLitem.setOnAction(event -> {
             languageMB.setGraphic(PLflag1);
             languageMB.setText("Polski");
             changeLanguageConfiguration("PL");
-            if (!Main.language.equals("PL"))
-                visibleLable(ex0Label, "Proszę ponownie\n uruchomić grę", 2);
+            if (!Main.language.equals("PL")) ex0Label.setText("Proszę ponownie\n uruchomić grę");
+            else ex0Label.setText("");
         });
         ENitem.setOnAction(event -> {
             languageMB.setGraphic(ENflag1);
             languageMB.setText("English");
             changeLanguageConfiguration("EN");
-            if (!Main.language.equals("EN"))
-                visibleLable(ex0Label, "Please, \nrestart the game", 2);
+            if (!Main.language.equals("EN")) ex0Label.setText("Please, \nrestart the game");
+            else ex0Label.setText("");
         });
         RUitem.setOnAction(event -> {
             languageMB.setGraphic(RUflag1);
             languageMB.setText("Русский");
             changeLanguageConfiguration("RU");
-            if (!Main.language.equals("RU"))
-                visibleLable(ex0Label, "Пожалуйста, \nперезагрузите игру", 2);
+            if (!Main.language.equals("RU")) ex0Label.setText("Пожалуйста, \nперезагрузите игру");
+            else ex0Label.setText("");
         });
-
         if (Main.language.equals("RU")){
             languageMB.setGraphic(RUflag1);
             languageMB.setText("Русский");
@@ -144,7 +150,6 @@ public class OptionsController{
             languageMB.setGraphic(ENflag1);
             languageMB.setText("English");
         }
-        languageMB.setMinWidth(135);
     }
 
     private void visibleLable(Label label, String text, int time){
