@@ -234,13 +234,4 @@ public class OptionsController{
         musicVolume.setValue(100);
     }
 
-//    public void choiseBoxChoosen() {
-//        if (Main.language.equals(languageCB.getValue())) {
-//        }
-//    }
-
-//    private String getAbbreviated(String language){
-//
-//    }
-
 }
