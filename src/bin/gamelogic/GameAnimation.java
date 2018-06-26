@@ -62,7 +62,7 @@ public class GameAnimation extends AnimationTimer {
                 false));
         gameover.setLayoutX(GameField.x/2-image_width/2+20);
         gameover.setLayoutY(GameField.y/2-image_height);
-        Button restart_button = new Button("RESTART");
+        Button restart_button = new Button(Main.languageProperties.getProperty("restart"));
         restart_button.setPrefSize(90,35);
         restart_button.setLayoutX(GameField.x/2-restart_button.getPrefWidth()/2+20);
         restart_button.setLayoutY(GameField.y/2+10);
@@ -71,7 +71,7 @@ public class GameAnimation extends AnimationTimer {
         restart_button.setScaleY(1.5);
         restart_button.setOnMousePressed(event -> start_this());
 
-        Button menu_button = new Button("MENU");
+        Button menu_button = new Button(Main.languageProperties.getProperty("menu"));
         menu_button.setPrefSize(90,35);
         menu_button.setLayoutX(GameField.x/2-menu_button.getPrefWidth()/2+20);
         menu_button.setLayoutY(GameField.y/2+40+menu_button.getPrefHeight());
@@ -95,7 +95,7 @@ public class GameAnimation extends AnimationTimer {
     }
 
     public void start_this() {
-        score = new Label("SCORE: "+0);
+        score = new Label(Main.languageProperties.getProperty("score") + " " +0);
         score.setLayoutX(700);
         score.setLayoutY(30);
         snake = new Snake(gameView);

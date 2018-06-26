@@ -12,16 +12,15 @@ public class Music {
     static InputStream music;
     static AudioStream audio;
 
-    public static void PlayMusic(String name){
+    public static void playMusic(String name){
         try{
             music = new FileInputStream(new File(name));
             audio = new AudioStream(music);
             AudioPlayer.player.start(audio);
-
         }catch (Exception e){}
     }
 
-    public static void StopMusic(){
+    public static void stopMusic(){
         AudioPlayer.player.stop(audio);
     }
 

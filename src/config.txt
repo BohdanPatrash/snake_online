@@ -1,4 +1,0 @@
-name=Petrovich
-control=4arrows
-music=true
-sounds=true
