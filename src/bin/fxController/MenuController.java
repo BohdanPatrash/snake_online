@@ -1,6 +1,7 @@
 package bin.fxController;
 
 import bin.Main;
+import bin.Music;
 import bin.gamelogic.Game;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

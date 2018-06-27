@@ -36,7 +36,7 @@ public class GameAnimation extends AnimationTimer {
                 gameView.getChildren().remove(food);
                 food = new Apple();
                 gameView.getChildren().add(food);
-                score.setText("SCORE: " + (snake.getSize() - 5));
+                score.setText(Main.languageProperties.getProperty("score") + " " +(snake.getSize() - 5));
             }
 
             if (snake.hits_border()) {
