@@ -38,7 +38,7 @@ public class GameAnimation extends AnimationTimer {
     GameAnimation(Pane gameView, Scene gameScene){
         this.gameView = gameView;
         this.gameScene = gameScene;
-        serverConnecting();
+        //serverConnecting();
 
     }
 
@@ -51,28 +51,28 @@ public class GameAnimation extends AnimationTimer {
             output[2] = Integer.toString(snake.getSpawn());
             output[3] = food.getCenterX()+" "+food.getCenterY();
             output[4] = "none";
-            sendData();
-            getData();
-            for (int i = 0; i <snakes.length; i++) {
-                if(i != playerNumber){
-                    if (!activatedSnakes){
-                        snakes[i].setSpawn(Integer.parseInt(input[i][2]));
-                        snakes[i].spawn();
-                        snakes[i].show();
-                        activatedSnakes = true;
-                        String coordinates[] = input[i][3].split(" ");
-                        double temp_x = Double.parseDouble(coordinates[0]);
-                        double temp_y = Double.parseDouble(coordinates[1]);
-                        Apple tempApp = new Apple();
-                        tempApp.setCenterX(temp_x);
-                        tempApp.setCenterY(temp_y);
-                        gameView.getChildren().add(tempApp);
-                    }
-                    snakes[i].setDirection(Integer.parseInt(input[i][0]));
-                    snakes[i].move();
-                }
-
-            }
+            //sendData();
+            //getData();
+//            for (int i = 0; i <snakes.length; i++) {
+//                if(i != playerNumber){
+//                    if (!activatedSnakes){
+//                        snakes[i].setSpawn(Integer.parseInt(input[i][2]));
+//                        snakes[i].spawn();
+//                        snakes[i].show();
+//                        activatedSnakes = true;
+//                        String coordinates[] = input[i][3].split(" ");
+//                        double temp_x = Double.parseDouble(coordinates[0]);
+//                        double temp_y = Double.parseDouble(coordinates[1]);
+//                        Apple tempApp = new Apple();
+//                        tempApp.setCenterX(temp_x);
+//                        tempApp.setCenterY(temp_y);
+//                        gameView.getChildren().add(tempApp);
+//                    }
+//                    snakes[i].setDirection(Integer.parseInt(input[i][0]));
+//                    snakes[i].move();
+//                }
+//
+//            }
             if (snake.eats(food)) {
                 gameView.getChildren().remove(food);
                 food = new Apple();
@@ -138,11 +138,11 @@ public class GameAnimation extends AnimationTimer {
     }
 
     public void startThis() {
-        try {
-            playerNumber = inStream.readInt();
-        }catch (IOException e ){
-            e.printStackTrace();
-        }
+//        try {
+//            playerNumber = inStream.readInt();
+//        }catch (IOException e ){
+//            e.printStackTrace();
+//        }
 
         score = new Label(Main.languageProperties.getProperty("score") + " " +0);
         score.setLayoutX(700);
@@ -159,28 +159,88 @@ public class GameAnimation extends AnimationTimer {
         snake.spawn();
         snake.show();
         gameScene.setOnKeyPressed(event -> {
-            if(event.getCode() == KeyCode.ESCAPE) {
-                exitToMenu();
-                event.consume();
-            }
-            else if(event.getCode() == KeyCode.UP){
-                snake.setDirection(3);
-                event.consume();
-            }
-            else if(event.getCode() == KeyCode.LEFT){
-                snake.setDirection(2);
-                event.consume();
-            }
-            else if(event.getCode() == KeyCode.DOWN){
-                snake.setDirection(1);
-                event.consume();
-            }
-            else if(event.getCode() == KeyCode.RIGHT){
-                snake.setDirection(0);
-                event.consume();
-            }
-        });
+                    if (event.getCode() == KeyCode.ESCAPE) {
+                        exitToMenu();
+                        event.consume();
+                    }
+                });
+        setControllerKeys();
         start();
+    }
+
+    private void setControllerKeys(){
+        if (Main.controller.equals("4arrows")){
+            gameScene.setOnKeyPressed(event -> {
+                if(event.getCode() == KeyCode.UP){
+                    snake.setDirection(3);
+                    event.consume();
+                }
+                else if(event.getCode() == KeyCode.LEFT){
+                    snake.setDirection(2);
+                    event.consume();
+                }
+                else if(event.getCode() == KeyCode.DOWN){
+                    snake.setDirection(1);
+                    event.consume();
+                }
+                else if(event.getCode() == KeyCode.RIGHT){
+                    snake.setDirection(0);
+                    event.consume();
+                }
+            });
+        }
+        else if (Main.controller.equals("WASD")){
+            gameScene.setOnKeyPressed(event -> {
+                if(event.getCode() == KeyCode.W){
+                    snake.setDirection(3);
+                    event.consume();
+                }
+                else if(event.getCode() == KeyCode.A){
+                    snake.setDirection(2);
+                    event.consume();
+                }
+                else if(event.getCode() == KeyCode.S){
+                    snake.setDirection(1);
+                    event.consume();
+                }
+                else if(event.getCode() == KeyCode.D){
+                    snake.setDirection(0);
+                    event.consume();
+                }
+            });
+        }
+        else if (Main.controller.equals("2arrows")){
+            gameScene.setOnKeyPressed(event -> {
+                if(event.getCode() == KeyCode.LEFT){
+                    int dir = snake.getDirection();
+                    if (dir == 0) snake.setDirection(3);
+                    else snake.setDirection(dir-1);
+                    event.consume();
+                }
+                else if(event.getCode() == KeyCode.RIGHT){
+                    int dir = snake.getDirection();
+                    if (dir == 3) snake.setDirection(0);
+                    else snake.setDirection(dir+1);
+                    event.consume();
+                }
+            });
+        }
+        else if (Main.controller.equals("AD")){
+            gameScene.setOnKeyPressed(event -> {
+                if(event.getCode() == KeyCode.A){
+                    int dir = snake.getDirection();
+                    if (dir == 0) snake.setDirection(3);
+                    else snake.setDirection(dir-1);
+                    event.consume();
+                }
+                else if(event.getCode() == KeyCode.D){
+                    int dir = snake.getDirection();
+                    if (dir == 3) snake.setDirection(0);
+                    else snake.setDirection(dir+1);
+                    event.consume();
+                }
+            });
+        }
     }
 
     private void serverConnecting(){
