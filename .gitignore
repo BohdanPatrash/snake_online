@@ -1,4 +1,4 @@
 .idea
 *.iml
 out
-src/config.txt
+src/bin/properties/config.properties

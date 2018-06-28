@@ -67,7 +67,7 @@ public class GameAnimation extends AnimationTimer {
                 gameView.getChildren().remove(food);
                 food = new Apple();
                 gameView.getChildren().add(food);
-                score.setText("SCORE: " + (snake.getSize() - 5));
+                score.setText(Main.languageProperties.getProperty("score") + " " +(snake.getSize() - 5));
             }
 
             if (snake.hits_border()) {
@@ -94,8 +94,8 @@ public class GameAnimation extends AnimationTimer {
                 false));
         gameover.setLayoutX(GameField.x/2-image_width/2+20);
         gameover.setLayoutY(GameField.y/2-image_height);
-        Button restart_button = new Button("RESTART");
-        restart_button.setPrefSize(90,35);
+        Button restart_button = new Button(Main.languageProperties.getProperty("restart"));
+        restart_button.setPrefSize(100,35);
         restart_button.setLayoutX(GameField.x/2-restart_button.getPrefWidth()/2+20);
         restart_button.setLayoutY(GameField.y/2+10);
         restart_button.setStyle("-fx-background-color: #917337");
@@ -103,8 +103,8 @@ public class GameAnimation extends AnimationTimer {
         restart_button.setScaleY(1.5);
         restart_button.setOnMousePressed(event -> startThis());
 
-        Button menu_button = new Button("MENU");
-        menu_button.setPrefSize(90,35);
+        Button menu_button = new Button(Main.languageProperties.getProperty("menu"));
+        menu_button.setPrefSize(100,35);
         menu_button.setLayoutX(GameField.x/2-menu_button.getPrefWidth()/2+20);
         menu_button.setLayoutY(GameField.y/2+40+menu_button.getPrefHeight());
         menu_button.setStyle("-fx-background-color: #917337");
@@ -137,7 +137,7 @@ public class GameAnimation extends AnimationTimer {
             e.printStackTrace();
         }
 
-        score = new Label("SCORE: "+0);
+        score = new Label(Main.languageProperties.getProperty("score") + " " +0);
         score.setLayoutX(700);
         score.setLayoutY(30);
         snake = new Snake(gameView);
