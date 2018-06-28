@@ -12,13 +12,14 @@ public class ServerStart {
     private static volatile String[][] data = new String[2][5];
 
     public static void main(String[] args) {
-        Socket client[] = new Socket[2];
-        DataOutputStream out[] = new DataOutputStream[2];
-        DataInputStream in[] = new DataInputStream[2];
+        int playerCount = 3;
+        Socket client[] = new Socket[playerCount];
+        DataOutputStream out[] = new DataOutputStream[playerCount];
+        DataInputStream in[] = new DataInputStream[playerCount];
         try (ServerSocket server = new ServerSocket(3355);
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("server created");
-            for (int i = 0; i < 2 ; i++) {
+            for (int i = 0; i < playerCount ; i++) {
                 client[i] = server.accept();
                 System.out.println("client "+ i+" connected");
                 out[i] = new DataOutputStream(client[i].getOutputStream());
@@ -27,7 +28,7 @@ public class ServerStart {
 
             }
             while (true) {
-                for (int i = 0; i <2 ; i++) {
+                for (int i = 0; i <playerCount ; i++) {
                     while (!client[i].isClosed()) {
                         if (in[i].available() > 0) {
                             for (int j = 0; j < 5; j++) {
@@ -40,8 +41,8 @@ public class ServerStart {
                 }
 
 
-                for (int k = 0; k <2 ; k++) {
-                    for (int i = 0; i < 2; i++) {
+                for (int k = 0; k <playerCount ; k++) {
+                    for (int i = 0; i < playerCount; i++) {
                         System.out.print(k + " snake: ");
                         for (int j = 0; j < 5; j++) {
                             System.out.print(data[i][j] + " ");

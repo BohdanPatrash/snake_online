@@ -32,7 +32,7 @@ public class GameAnimation extends AnimationTimer {
     private DataOutputStream outStream;
     private Snake[] snakes;
     private int playerNumber;
-    private boolean allConnected;
+    private int playerCount = 3;
     private boolean activatedSnakes = false;
 
     GameAnimation(Pane gameView, Scene gameScene){
@@ -149,7 +149,7 @@ public class GameAnimation extends AnimationTimer {
         score = new Label(Main.languageProperties.getProperty("score") + " " +0);
         score.setLayoutX(700);
         score.setLayoutY(30);
-        snakes = new Snake[2];
+        snakes = new Snake[playerCount];
         for (int i = 0; i <snakes.length ; i++) {
             snakes[i] = new Snake(gameView);
         }
@@ -187,7 +187,7 @@ public class GameAnimation extends AnimationTimer {
 
     private void serverConnecting(){
         try {
-            socket = new Socket("176.36.232.200", 3355);
+            socket = new Socket("156.17.232.65", 8984);
             System.out.println("Client connected to socket");
         } catch(Exception e){
             e.printStackTrace();
@@ -215,7 +215,7 @@ public class GameAnimation extends AnimationTimer {
 
     private void getData(){
         try{
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < playerCount; i++) {
                 for (int j = 0; j <5 ; j++) {
                     input[i][j] = inStream.readUTF();
                 }
