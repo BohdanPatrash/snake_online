@@ -187,7 +187,7 @@ public class GameAnimation extends AnimationTimer {
 
     private void serverConnecting(){
         try {
-            socket = new Socket("localhost", 3355);
+            socket = new Socket("176.36.232.200", 3355);
             System.out.println("Client connected to socket");
         } catch(Exception e){
             e.printStackTrace();
