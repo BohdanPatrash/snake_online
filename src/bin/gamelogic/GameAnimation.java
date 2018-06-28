@@ -2,6 +2,7 @@ package bin.gamelogic;
 
 import bin.food.Apple;
 import bin.Main;
+import bin.food.Food;
 import bin.snake.Snake;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
@@ -48,7 +49,7 @@ public class GameAnimation extends AnimationTimer {
             output[0] = Integer.toString(snake.getDirection());
             output[1] = Main.name;
             output[2] = Integer.toString(snake.getSpawn());
-            output[3] = "none";
+            output[3] = food.getCenterX()+" "+food.getCenterY();
             output[4] = "none";
             sendData();
             getData();
@@ -59,6 +60,15 @@ public class GameAnimation extends AnimationTimer {
                         snakes[i].spawn();
                         snakes[i].show();
                         activatedSnakes = true;
+//                    }
+//                    if (!activatedSnakes) {
+                        String coordinates[] = input[i][3].split(" ");
+                        double temp_x = Double.parseDouble(coordinates[0]);
+                        double temp_y = Double.parseDouble(coordinates[1]);
+                        Apple tempApp = new Apple();
+                        tempApp.setCenterX(temp_x);
+                        tempApp.setCenterY(temp_y);
+                        gameView.getChildren().add(tempApp);
                     }
                     snakes[i].setDirection(Integer.parseInt(input[i][0]));
                     snakes[i].move();
@@ -72,10 +82,7 @@ public class GameAnimation extends AnimationTimer {
                 score.setText(Main.languageProperties.getProperty("score") + " " +(snake.getSize() - 5));
             }
 
-            if (snake.hits_border()) {
-                loose();
-                stop();
-            } else if (snake.hit_self()) {
+            if (snake.hits_border() || snake.hit_self()) {
                 loose();
                 stop();
             }
