@@ -17,9 +17,9 @@ public class Snake{
     private int step = 11;
     private int horizontal = 0;
     private int vertical = -step;
-    private int spawn = 1;// 0 -> right ; 1 -> down ; 2 -> left ; 3 -> up
+    private int spawn = 0;// 0 -> right ; 1 -> down ; 2 -> left ; 3 -> up
     private boolean lost = false;
-    private int direction = 1; // 0 -> right ; 1 -> down ; 2 -> left ; 3 -> up
+    private int direction = 0; // 0 -> right ; 1 -> down ; 2 -> left ; 3 -> up
 
     public int getSize() {return body.size();}
 

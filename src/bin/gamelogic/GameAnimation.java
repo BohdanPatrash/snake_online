@@ -32,6 +32,7 @@ public class GameAnimation extends AnimationTimer {
     private Snake[] snakes;
     private int playerNumber;
     private boolean allConnected;
+    private boolean activatedSnakes = false;
 
     GameAnimation(Pane gameView, Scene gameScene){
         this.gameView = gameView;
@@ -44,24 +45,25 @@ public class GameAnimation extends AnimationTimer {
     public void handle(long now) {
         if(now - lastUpdate >= 200_000_000) {
             snake.move();
-            System.out.println("lala");
             output[0] = Integer.toString(snake.getDirection());
             output[1] = Main.name;
             output[2] = Integer.toString(snake.getSpawn());
             output[3] = "none";
             output[4] = "none";
-            dataOutput();
-            dataInput();
+            sendData();
+            getData();
             for (int i = 0; i <snakes.length; i++) {
-                if (playerNumber != i){
-                    if (!(snakes[i].getSpawn() == Integer.parseInt(input[i][2]))){
+                if(i != playerNumber){
+                    if (!activatedSnakes){
                         snakes[i].setSpawn(Integer.parseInt(input[i][2]));
                         snakes[i].spawn();
                         snakes[i].show();
+                        activatedSnakes = true;
                     }
                     snakes[i].setDirection(Integer.parseInt(input[i][0]));
                     snakes[i].move();
                 }
+
             }
             if (snake.eats(food)) {
                 gameView.getChildren().remove(food);
@@ -140,13 +142,13 @@ public class GameAnimation extends AnimationTimer {
         score = new Label(Main.languageProperties.getProperty("score") + " " +0);
         score.setLayoutX(700);
         score.setLayoutY(30);
-        snake = new Snake(gameView);
-        snake.setSpawn(playerNumber);
-        snake.setDirection(playerNumber);
         snakes = new Snake[2];
         for (int i = 0; i <snakes.length ; i++) {
             snakes[i] = new Snake(gameView);
         }
+        snake = snakes[playerNumber];
+        snake.setSpawn(playerNumber);
+        snake.setDirection(playerNumber);
         food = new Apple();
         gameView.getChildren().addAll(new SnakeBackground(), new GameField(), food, score);
         snake.spawn();
@@ -192,7 +194,7 @@ public class GameAnimation extends AnimationTimer {
 
     }
 
-    private void dataOutput(){
+    private void sendData(){
         try {
             for (int i = 0; i <5 ; i++) {
                 outStream.writeUTF(output[i]);
@@ -204,7 +206,7 @@ public class GameAnimation extends AnimationTimer {
         }
     }
 
-    private void dataInput(){
+    private void getData(){
         try{
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j <5 ; j++) {
