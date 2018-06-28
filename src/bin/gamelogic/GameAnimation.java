@@ -185,11 +185,7 @@ public class GameAnimation extends AnimationTimer {
 
     private void serverConnecting(){
         try {
-<<<<<<< Updated upstream
-            socket = new Socket("156.17.232.65", 8984);
-=======
             socket = new Socket("192.168.0.102", 8984);
->>>>>>> Stashed changes
             System.out.println("Client connected to socket");
         } catch(Exception e){
             e.printStackTrace();
