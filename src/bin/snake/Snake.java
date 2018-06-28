@@ -17,8 +17,9 @@ public class Snake{
     private int step = 11;
     private int horizontal = 0;
     private int vertical = -step;
-    private int lastHorizontal = 0;
-    private int lastVertical = -step;
+    private int spawn = 1;// 0 -> right ; 1 -> down ; 2 -> left ; 3 -> up
+    private boolean lost = false;
+    private int direction = 1; // 0 -> right ; 1 -> down ; 2 -> left ; 3 -> up
 
     public int getSize() {return body.size();}
 
@@ -32,19 +33,48 @@ public class Snake{
         this.pane = pane;
     }
 
+    public void spawn(){
+        SquareDOT dot = getHead();
+        if (spawn == 0){
+            setDirection(0);
+            for(int i = 0; i < body.size(); i++){
+                dot.setX(GameField.x/2+66-i*dot.getWidth());
+                dot.setY(GameField.y/2);
+                if(dot.hasNext()) dot = dot.getNext();
+            }
+        }else if (spawn == 1){
+            setDirection(1);
+            for(int i = 0; i < body.size(); i++){
+                dot.setX(GameField.x/2);
+                dot.setY(GameField.y/2+66-i*dot.getHeight());
+                if(dot.hasNext()) dot = dot.getNext();
+            }
+        }else if (spawn == 2){
+            setDirection(2);
+            for(int i = 0; i < body.size(); i++){
+                dot.setX(GameField.x/2-66+i*dot.getWidth());
+                dot.setY(GameField.y/2);
+                if(dot.hasNext()) dot = dot.getNext();
+            }
+        }else if (spawn == 3){
+            setDirection(3);
+            for(int i = 0; i < body.size(); i++){
+                dot.setX(GameField.x/2);
+                dot.setY(GameField.y/2-66+i*dot.getHeight());
+                if(dot.hasNext()) dot = dot.getNext();
+            }
+        }
+    }
+
     public void show(){
-        SquareDOT dot = body.getHead();
-        for(int i = 0; i < body.size(); i++){
-            dot.setX(GameField.x/2);
-            dot.setY(GameField.y/2+i*dot.getHeight());
-            pane.getChildren().addAll(dot);
+        SquareDOT dot = getHead();
+        for (int i = 0; i < body.size() ; i++) {
+            pane.getChildren().add(dot);
             if(dot.hasNext()) dot = dot.getNext();
         }
     }
 
     public void move(){
-        lastHorizontal = horizontal;
-        lastVertical = vertical;
         body.getLast().setX(head.getX());
         body.getLast().setY(head.getY());
         body.add_second(body.getLast());
@@ -89,37 +119,46 @@ public class Snake{
         return false;
     }
 
-    public void up(){
-        if(vertical==0 && lastVertical==0){
+    public SnakeList getBody(){return body;}
+
+    public SquareDOT getHead(){
+        return head;
+    }
+
+    public boolean hasLost(){
+        return lost;
+    }
+
+    public void loose(){
+        lost = true;
+    }
+
+    public int getDirection(){
+        return direction;
+    }
+
+    public void setDirection(int direction){
+        this.direction = direction;
+        if(direction == 3){
             vertical=-step;
             horizontal=0;
-        }
-    }
-
-    public void left(){
-        if(horizontal==0 && lastHorizontal==0){
+        }else if(direction == 2){
             vertical=0;
             horizontal=-step;
-        }
-    }
-
-    public void down(){
-        if(vertical==0 && lastVertical ==0){
+        }else if(direction == 1){
             vertical=step;
             horizontal=0;
-        }
-    }
-
-    public void right(){
-        if(horizontal==0 && lastHorizontal ==0){
+        }else if( direction == 0){
             vertical=0;
             horizontal=step;
         }
     }
 
-    public SnakeList getBody(){return body;}
+    public int getSpawn(){
+        return spawn;
+    }
 
-    public SquareDOT getHead(){
-        return head;
+    public void setSpawn( int spawn){
+        this.spawn = spawn;
     }
 }

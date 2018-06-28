@@ -1,33 +1,64 @@
 package server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ServerStart {
-    static ExecutorService executeIt = Executors.newFixedThreadPool(4);
+
+    private static volatile String[][] data = new String[2][5];
 
     public static void main(String[] args) {
-
+        Socket client[] = new Socket[2];
+        DataOutputStream out[] = new DataOutputStream[2];
+        DataInputStream in[] = new DataInputStream[2];
         try (ServerSocket server = new ServerSocket(3355);
-             BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("server created");
-            while (!server.isClosed()) {
-
-                Socket client = server.accept();
-                System.out.println("client connecting...");
-
-                executeIt.execute(new MonoThreadClientHandler(client));
-                System.out.println("client connected");
+            for (int i = 0; i < 2 ; i++) {
+                client[i] = server.accept();
+                System.out.println("client "+ i+" connected");
+                out[i] = new DataOutputStream(client[i].getOutputStream());
+                in[i] = new DataInputStream(client[i].getInputStream());
+                out[i].writeInt(i);
 
             }
+            while (true) {
+                for (int i = 0; i <2 ; i++) {
+                    while (!client[i].isClosed()) {
+                        if (in[i].available() > 0) {
+                            for (int j = 0; j < 5; j++) {
+                                data[i][j] = in[i].readUTF();
+                            }
+                            break;
+                        }
+                        Thread.sleep(1);
+                    }
+                }
 
-            executeIt.shutdown();
+
+                for (int k = 0; k <2 ; k++) {
+                    for (int i = 0; i < 2; i++) {
+                        System.out.print(k + " snake: ");
+                        for (int j = 0; j < 5; j++) {
+                            System.out.print(data[i][j] + " ");
+                            out[k].writeUTF(data[i][j]);
+                        }
+                        System.out.println();
+                    }
+
+                }
+
+                Thread.sleep(10);
+            }
+
+
         } catch (IOException e) {
+            e.printStackTrace();
+        }catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

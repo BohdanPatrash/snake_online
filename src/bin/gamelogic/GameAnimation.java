@@ -18,8 +18,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class GameAnimation extends AnimationTimer {
-    private double[] output = new double[5];
-    private double[] input = new double[5];
+    private String[] output = new String[5];
+    private String[][] input = new String[4][5];
     private Snake snake;
     private Apple food;
     private Pane gameView;
@@ -29,26 +29,40 @@ public class GameAnimation extends AnimationTimer {
     private Socket socket;
     private DataInputStream inStream;
     private DataOutputStream outStream;
+    private Snake[] snakes;
+    private int playerNumber;
+    private boolean allConnected;
 
     GameAnimation(Pane gameView, Scene gameScene){
         this.gameView = gameView;
         this.gameScene = gameScene;
         serverConnecting();
-        try{
-            inStream = new DataInputStream(socket.getInputStream());
-            outStream = new DataOutputStream(socket.getOutputStream());
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+
     }
 
     @Override
     public void handle(long now) {
         if(now - lastUpdate >= 200_000_000) {
             snake.move();
-            output[0]= snake.getHead().getX();
-            output[1]= snake.getHead().getY();
+            System.out.println("lala");
+            output[0] = Integer.toString(snake.getDirection());
+            output[1] = Main.name;
+            output[2] = Integer.toString(snake.getSpawn());
+            output[3] = "none";
+            output[4] = "none";
             dataOutput();
+            dataInput();
+            for (int i = 0; i <snakes.length; i++) {
+                if (playerNumber != i){
+                    if (!(snakes[i].getSpawn() == Integer.parseInt(input[i][2]))){
+                        snakes[i].setSpawn(Integer.parseInt(input[i][2]));
+                        snakes[i].spawn();
+                        snakes[i].show();
+                    }
+                    snakes[i].setDirection(Integer.parseInt(input[i][0]));
+                    snakes[i].move();
+                }
+            }
             if (snake.eats(food)) {
                 gameView.getChildren().remove(food);
                 food = new Apple();
@@ -68,6 +82,7 @@ public class GameAnimation extends AnimationTimer {
     }
 
     private void loose() {
+        snake.loose();
         gameView.getChildren().clear();
         stop();
         int image_width = 250;
@@ -97,7 +112,11 @@ public class GameAnimation extends AnimationTimer {
         menu_button.setScaleY(1.5);
         menu_button.setOnMousePressed(event -> exitToMenu());
 
-        gameView.getChildren().addAll(new SnakeBackground(), new GameField(),gameover, restart_button, menu_button);
+        gameView.getChildren().addAll(new SnakeBackground(),
+                                            new GameField(),
+                                            gameover,
+                                            restart_button,
+                                            menu_button);
     }
 
     private void exitToMenu() {
@@ -112,12 +131,25 @@ public class GameAnimation extends AnimationTimer {
     }
 
     public void startThis() {
+        try {
+            playerNumber = inStream.readInt();
+        }catch (IOException e ){
+            e.printStackTrace();
+        }
+
         score = new Label("SCORE: "+0);
         score.setLayoutX(700);
         score.setLayoutY(30);
         snake = new Snake(gameView);
+        snake.setSpawn(playerNumber);
+        snake.setDirection(playerNumber);
+        snakes = new Snake[2];
+        for (int i = 0; i <snakes.length ; i++) {
+            snakes[i] = new Snake(gameView);
+        }
         food = new Apple();
         gameView.getChildren().addAll(new SnakeBackground(), new GameField(), food, score);
+        snake.spawn();
         snake.show();
         gameScene.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ESCAPE) {
@@ -125,37 +157,23 @@ public class GameAnimation extends AnimationTimer {
                 event.consume();
             }
             else if(event.getCode() == KeyCode.UP){
-                snake.up();
+                snake.setDirection(3);
                 event.consume();
             }
             else if(event.getCode() == KeyCode.LEFT){
-                snake.left();
+                snake.setDirection(2);
                 event.consume();
             }
             else if(event.getCode() == KeyCode.DOWN){
-                snake.down();
+                snake.setDirection(1);
                 event.consume();
             }
             else if(event.getCode() == KeyCode.RIGHT){
-                snake.right();
+                snake.setDirection(0);
                 event.consume();
             }
         });
         start();
-    }
-
-    public double[] getOutput(){
-        return output;
-    }
-
-    private void dataOutput(){
-        try {
-            outStream.writeDouble(getOutput()[0]);
-            outStream.writeDouble(getOutput()[1]);
-            outStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void serverConnecting(){
@@ -165,6 +183,39 @@ public class GameAnimation extends AnimationTimer {
         } catch(Exception e){
             e.printStackTrace();
         }
+        try{
+            inStream = new DataInputStream(socket.getInputStream());
+            outStream = new DataOutputStream(socket.getOutputStream());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
+
+    private void dataOutput(){
+        try {
+            for (int i = 0; i <5 ; i++) {
+                outStream.writeUTF(output[i]);
+                outStream.flush();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void dataInput(){
+        try{
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j <5 ; j++) {
+                    input[i][j] = inStream.readUTF();
+                }
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
