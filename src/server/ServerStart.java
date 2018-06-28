@@ -12,16 +12,23 @@ public class ServerStart {
     private static volatile String[][] data = new String[2][5];
 
     public static void main(String[] args) {
+<<<<<<< Updated upstream
         int playerCount = 3;
         Socket client[] = new Socket[playerCount];
         DataOutputStream out[] = new DataOutputStream[playerCount];
         DataInputStream in[] = new DataInputStream[playerCount];
         try (ServerSocket server = new ServerSocket(3355);
+=======
+        Socket client[] = new Socket[2];
+        DataOutputStream out[] = new DataOutputStream[2];
+        DataInputStream in[] = new DataInputStream[2];
+        try (ServerSocket server = new ServerSocket(8984);
+>>>>>>> Stashed changes
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("server created");
             for (int i = 0; i < playerCount ; i++) {
                 client[i] = server.accept();
-                System.out.println("client "+ i+" connected");
+                System.out.println("client "+ i +" connected");
                 out[i] = new DataOutputStream(client[i].getOutputStream());
                 in[i] = new DataInputStream(client[i].getInputStream());
                 out[i].writeInt(i);

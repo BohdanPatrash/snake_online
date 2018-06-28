@@ -60,8 +60,6 @@ public class GameAnimation extends AnimationTimer {
                         snakes[i].spawn();
                         snakes[i].show();
                         activatedSnakes = true;
-//                    }
-//                    if (!activatedSnakes) {
                         String coordinates[] = input[i][3].split(" ");
                         double temp_x = Double.parseDouble(coordinates[0]);
                         double temp_y = Double.parseDouble(coordinates[1]);
@@ -187,7 +185,11 @@ public class GameAnimation extends AnimationTimer {
 
     private void serverConnecting(){
         try {
+<<<<<<< Updated upstream
             socket = new Socket("156.17.232.65", 8984);
+=======
+            socket = new Socket("192.168.0.102", 8984);
+>>>>>>> Stashed changes
             System.out.println("Client connected to socket");
         } catch(Exception e){
             e.printStackTrace();
