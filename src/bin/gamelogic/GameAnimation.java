@@ -26,7 +26,7 @@ public class GameAnimation extends AnimationTimer {
     private Snake snake;
     private Pane gameView;
     private Scene gameScene;
-    private Label score;
+    private Label[] score;
     private long lastUpdate=0;
     private Socket socket;
     private DataInputStream inStream;
@@ -52,26 +52,27 @@ public class GameAnimation extends AnimationTimer {
             output[0] = Integer.toString(snake.getDirection());
             output[1] = Main.name;
             output[2] = Integer.toString(snake.getSpawn());
-            output[3] = foodCoordinates[playerNumber];
+            output[3] = "none";
             output[4] = "none";
             sendData();
             getData();
+            if(!input[playerNumber][5].equals("?")){
+                spawningFood(input[playerNumber][5]);
+            }
             for (int i = 0; i <snakes.length; i++) {
+                score[i].setText(input[i][1] + ": " +(snakes[i].getSize() - 5));
                 if(i != playerNumber){
                     renderAll(i);
                     snakes[i].setDirection(Integer.parseInt(input[i][0]));
                     snakes[i].move();
                     if (snakes[i].eats(food)){
-                        String temp[] = input[i][3].split("_");
-                        snakes[i].getTempF().setCenterX(Double.parseDouble(temp[0]));
-                        snakes[i].getTempF().setCenterY(Double.parseDouble(temp[1]));
+                        score[i].setText(input[i][1] + ": " +(snakes[i].getSize() - 5));
                     }
                 }
-
             }
+
             if (snake.eats(food)) {
-                foodCoordinates[playerNumber] = snake.getTempF().getCenterX()+"_"+snake.getTempF().getCenterY();
-                score.setText(Main.languageProperties.getProperty("score") + " " +(snake.getSize() - 5));
+                score[playerNumber].setText(input[playerNumber][1] + ": " +(snake.getSize() - 5));
             }
 
             if (snake.hits_border() || snake.hit_self()) {
@@ -136,14 +137,18 @@ public class GameAnimation extends AnimationTimer {
         try {
             playerNumber = inStream.readInt();
             playerCount = inStream.readInt();
-            foodCoordinates = inStream.readUTF().split(" ");
         }catch (IOException e ){
             e.printStackTrace();
         }
         input = new String[playerCount][5];
-        score = new Label(Main.languageProperties.getProperty("score") + " " +0);
-        score.setLayoutX(700);
-        score.setLayoutY(30);
+        gameView.getChildren().addAll(new SnakeBackground(), new GameField());
+        score = new Label[playerCount];
+        for (int i = 0; i <playerCount ; i++) {
+            score[i] = new Label(Main.languageProperties.getProperty("score") + " " +0);
+            score[i].setLayoutX(700);
+            score[i].setLayoutY(30+i*40);
+            gameView.getChildren().add(score[i]);
+        }
         snakes = new Snake[playerCount];
         for (int i = 0; i <snakes.length ; i++) {
             snakes[i] = new Snake(gameView);
@@ -151,7 +156,6 @@ public class GameAnimation extends AnimationTimer {
         snake = snakes[playerNumber];
         snake.setSpawn(playerNumber);
         snake.setDirection(playerNumber);
-        gameView.getChildren().addAll(new SnakeBackground(), new GameField(), score);
         snake.spawn();
         snake.show();
         gameScene.setOnKeyPressed(event -> {
@@ -226,23 +230,20 @@ public class GameAnimation extends AnimationTimer {
             snakes[i].setSpawn(Integer.parseInt(input[i][2]));
             snakes[i].spawn();
             snakes[i].show();
-            spawningFood();
             activatedSnakes = true;
         }
     }
 
-    private void spawningFood(){
+    private void spawningFood(String s){
+        String temp[] = s.split("_");
+        double temp_x = Double.parseDouble(temp[0]);
+        double temp_y = Double.parseDouble(temp[1]);
+        Apple tempApp = new Apple();
+        tempApp.setCenterX(temp_x);
+        tempApp.setCenterY(temp_y);
+        food.add(tempApp);
+        gameView.getChildren().add(tempApp);
 
-        for (int i = 0; i <foodCoordinates.length ; i++) {
-            String temp[] = foodCoordinates[i].split("_");
-            double temp_x = Double.parseDouble(temp[0]);
-            double temp_y = Double.parseDouble(temp[1]);
-            Apple tempApp = new Apple();
-            tempApp.setCenterX(temp_x);
-            tempApp.setCenterY(temp_y);
-            food.add(tempApp);
-            gameView.getChildren().add(tempApp);
-        }
     }
 
 

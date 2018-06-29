@@ -103,11 +103,11 @@ public class Snake{
             if(x+5.5 == f.getCenterX() && y+5.5 == f.getCenterY()){
                 f.causes(this);
                 pane.getChildren().remove(f);
-                if (f instanceof Apple){
-                    f = new Apple();
-                }
-                tempF = f;
-                pane.getChildren().add(f);
+//                if (f instanceof Apple){
+//                    f = new Apple();
+//                }
+//                tempF = f;
+//                pane.getChildren().add(f);
                 return true;
             }
         }
