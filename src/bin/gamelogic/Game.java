@@ -4,11 +4,6 @@ import bin.Main;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import java.awt.*;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
-import java.util.Scanner;
 
 
 public class Game{

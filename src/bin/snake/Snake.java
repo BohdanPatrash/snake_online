@@ -1,10 +1,12 @@
 package bin.snake;
 
+import bin.food.Apple;
 import bin.food.Food;
 import bin.gamelogic.GameField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+import java.util.List;
 
 
 public class Snake{
@@ -20,6 +22,7 @@ public class Snake{
     private int spawn = 0;// 0 -> right ; 1 -> down ; 2 -> left ; 3 -> up
     private boolean lost = false;
     private int direction = 0; // 0 -> right ; 1 -> down ; 2 -> left ; 3 -> up
+    private Food tempF;
 
     public int getSize() {return body.size();}
 
@@ -94,11 +97,21 @@ public class Snake{
         pane.getChildren().add(body.getLast());
     }
 
-    public boolean eats(Food food){
-        if(x+5.5 == food.getCenterX() && y+5.5 == food.getCenterY()){
-            food.causes(this);
-            return true;
-        }else return false;
+    public boolean eats(List<Food> food){
+        for (Food f:
+             food) {
+            if(x+5.5 == f.getCenterX() && y+5.5 == f.getCenterY()){
+                f.causes(this);
+                pane.getChildren().remove(f);
+                if (f instanceof Apple){
+                    f = new Apple();
+                }
+                tempF = f;
+                pane.getChildren().add(f);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean hits_border(){
@@ -160,5 +173,9 @@ public class Snake{
 
     public void setSpawn( int spawn){
         this.spawn = spawn;
+    }
+
+    public Food getTempF(){
+        return tempF;
     }
 }
