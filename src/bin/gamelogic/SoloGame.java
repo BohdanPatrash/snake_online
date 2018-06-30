@@ -17,69 +17,56 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
-public class GameAnimation extends AnimationTimer {
-    private String[] output = new String[5];
-    private String[][] input;
+public class SoloGame extends AnimationTimer {
+
+    private Pane gameView = new Pane();
+    private Scene gameScene = new Scene(gameView);
+    public static int x = 850;
+    public static int y = 700;
+    private String[] splitFood;
     private Snake snake;
-    private Pane gameView;
-    private Scene gameScene;
-    private Label[] score;
+    private Label score;
     private long lastUpdate=0;
-    private Socket socket;
-    private DataInputStream inStream;
-    private DataOutputStream outStream;
-    private Snake[] snakes;
-    private int playerNumber;
-    private int playerCount;
-    private boolean activatedSnakes = false;
-    private String foodCoordinates[];
     private List<Food> food = new ArrayList<>();
 
-
-    GameAnimation(Pane gameView, Scene gameScene){
-        this.gameView = gameView;
-        this.gameScene = gameScene;
-        serverConnecting();
-
+    public SoloGame(){
+        gameView.setPrefSize(x, y);
+        Main.window.setScene(gameScene);
+        Main.window.setX(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2
+                -Main.window.getScene().getWidth()/2);
+        Main.window.setY(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2
+                -Main.window.getScene().getHeight()/2);
+        startThis();
+        start();
     }
 
     @Override
     public void handle(long now){
         if(now - lastUpdate >= 200_000_000) {
-            //snake.move();
-            output[0] = Integer.toString(snake.getDirection());
-            output[1] = Main.name;
-            output[2] = Integer.toString(snake.getSpawn());
-            output[3] = "none";
-            output[4] = "none";
-            sendData();
-            getData();
-            for (int i = 5; i < input[playerNumber].length; i++) {
-                if(!input[playerNumber][i].equals("?")){
-                    spawningFood(input[playerNumber][i]);
+            snake.move();
+            Random random = new Random();
+            String randomFood = "?";
+            double probability = random.nextDouble();
+            if (probability < 0.06) {
+                Apple temp = new Apple();
+                randomFood += " Apple_"+ temp.getCenterX()+"_"+temp.getCenterY();
+            }
+            splitFood = randomFood.split(" ");
+            for (int i = 0; i <splitFood.length ; i++) {
+                if(!splitFood[i].equals("?")){
+                    spawningFood(splitFood[i]);
                 }
             }
-            for (int i = 0; i <snakes.length; i++) {
-                score[i].setText(input[i][1] + ": " +(snakes[i].getSize() - 5));
-                if(i != playerNumber){
-                    renderAll(i);
-                    snakes[i].setDirection(Integer.parseInt(input[i][0]));
-                    //snakes[i].move();
-                    if (snakes[i].eats(food)){
-                        score[i].setText(input[i][1] + ": " +(snakes[i].getSize() - 5));
-                    }
-                }
-            }
-            activatedSnakes = true;
             if (snake.eats(food)) {
-                score[playerNumber].setText(input[playerNumber][1] + ": " +(snake.getSize() - 5));
+                score.setText(Main.languageProperties.getProperty("score") + " " +(snake.getSize() - 5));
             }
 
             if (snake.hits_border() || snake.hit_self()) {
-//                loose();
-//                stop();
+                loose();
+                stop();
             }
 
             lastUpdate = now;
@@ -118,10 +105,10 @@ public class GameAnimation extends AnimationTimer {
         menu_button.setOnMousePressed(event -> exitToMenu());
 
         gameView.getChildren().addAll(new SnakeBackground(),
-                                            new GameField(),
-                                            gameover,
-                                            restart_button,
-                                            menu_button);
+                new GameField(),
+                gameover,
+                restart_button,
+                menu_button);
     }
 
     private void exitToMenu() {
@@ -136,37 +123,22 @@ public class GameAnimation extends AnimationTimer {
     }
 
     public void startThis() {
-        try {
-            playerNumber = inStream.readInt();
-            playerCount = inStream.readInt();
-        }catch (IOException e ){
-            e.printStackTrace();
-        }
-        input = new String[playerCount][5];
-        gameView.getChildren().addAll(new SnakeBackground(), new GameField());
-        score = new Label[playerCount];
-        for (int i = 0; i <playerCount ; i++) {
-            score[i] = new Label(Main.languageProperties.getProperty("score") + " " +0);
-            score[i].setLayoutX(700);
-            score[i].setLayoutY(30+i*40);
-            gameView.getChildren().add(score[i]);
-        }
 
-        snakes = new Snake[playerCount];
-        for (int i = 0; i <snakes.length ; i++) {
-            snakes[i] = new Snake(gameView);
-        }
-        snake = snakes[playerNumber];
-        snake.setSpawn(playerNumber);
-        snake.setDirection(playerNumber);
+        score = new Label(Main.languageProperties.getProperty("score") + " " +0);
+        score.setLayoutX(700);
+        score.setLayoutY(30);
+        gameView.getChildren().addAll(new SnakeBackground(), new GameField(), score);
+        snake = new Snake(gameView);
+        snake.setSpawn(3);
+        snake.setDirection(3);
         snake.spawn();
         snake.show();
         gameScene.setOnKeyPressed(event -> {
-                    if (event.getCode() == KeyCode.ESCAPE) {
-                        exitToMenu();
-                        event.consume();
-                    }
-                });
+            if (event.getCode() == KeyCode.ESCAPE) {
+                exitToMenu();
+                event.consume();
+            }
+        });
         setControllerKeys();
         start();
     }
@@ -243,56 +215,6 @@ public class GameAnimation extends AnimationTimer {
                     event.consume();
                 }
             });
-        }
-    }
-
-    private void serverConnecting(){
-        try {
-            socket = new Socket("localhost", 3355);
-            System.out.println("Client connected to socket");
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        try{
-            inStream = new DataInputStream(socket.getInputStream());
-            outStream = new DataOutputStream(socket.getOutputStream());
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-    }
-
-    private void sendData(){
-        try {
-            outStream.writeUTF(
-                  output[0]+" "
-                    +output[1]+" "
-                    +output[2]+" "
-                    +output[3]+" "
-                    +output[4]);
-            outStream.flush();
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void getData(){
-        try{
-            for (int i = 0; i < playerCount; i++) {
-                    input[i] = inStream.readUTF().split(" ");
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    private void renderAll(int i){
-        if (!activatedSnakes){
-            snakes[i].setSpawn(Integer.parseInt(input[i][2]));
-            snakes[i].spawn();
-            snakes[i].show();
         }
     }
 

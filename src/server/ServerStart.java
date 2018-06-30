@@ -9,10 +9,10 @@ import java.util.Random;
 
 public class ServerStart {
 
-    private static volatile String[] data = new String[2];
+    private static volatile String[] data = new String[4];
 
     public static void main(String[] args) {
-        int playerCount = 1 ;
+        int playerCount = 2 ;
         Socket client[] = new Socket[playerCount];
         DataOutputStream out[] = new DataOutputStream[playerCount];
         DataInputStream in[] = new DataInputStream[playerCount];
@@ -39,14 +39,23 @@ public class ServerStart {
                 }
                 String randomFood = " ?";
                 double probability = random.nextDouble();
-                if (probability < 0.05) {
+                if (probability < playerCount*0.045) {
                     Apple temp = new Apple();
-                    randomFood = " Apple_"+ temp.getCenterX()+"_"+temp.getCenterY();
+                    randomFood += " Apple_"+ temp.getCenterX()+"_"+temp.getCenterY();
                 }
-                if(probability < 0.025){
+                if(probability < playerCount*0.025 && playerCount >= 2){
                     Apple temp = new Apple();
-                    randomFood = " Apple_"+ temp.getCenterX()+"_"+temp.getCenterY();
+                    randomFood += " Apple_"+ temp.getCenterX()+"_"+temp.getCenterY();
                 }
+                if(probability < playerCount*0.01 && playerCount >= 3){
+                    Apple temp = new Apple();
+                    randomFood += " Apple_"+ temp.getCenterX()+"_"+temp.getCenterY();
+                }
+                if(probability < playerCount*0.003 && playerCount >= 4){
+                    Apple temp = new Apple();
+                    randomFood += " Apple_"+ temp.getCenterX()+"_"+temp.getCenterY();
+                }
+                System.out.println(randomFood);
                 for (int k = 0; k <playerCount ; k++) {
                     for (int i = 0; i < playerCount; i++) {
                         out[k].writeUTF(data[i]+ randomFood);

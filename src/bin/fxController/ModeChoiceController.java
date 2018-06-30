@@ -1,7 +1,7 @@
 package bin.fxController;
 
 import bin.Main;
-import bin.gamelogic.Game;
+import bin.gamelogic.SoloGame;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -59,7 +59,7 @@ public class ModeChoiceController {
     }
 
     public void soloButtonPress(){
-        new Game();
+        new SoloGame();
     }
 
     public void backButtonPress(){
