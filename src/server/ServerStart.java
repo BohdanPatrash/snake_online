@@ -12,7 +12,7 @@ public class ServerStart {
     private static volatile String[] data = new String[2];
 
     public static void main(String[] args) {
-        int playerCount = 2 ;
+        int playerCount = 1 ;
         Socket client[] = new Socket[playerCount];
         DataOutputStream out[] = new DataOutputStream[playerCount];
         DataInputStream in[] = new DataInputStream[playerCount];
@@ -37,14 +37,19 @@ public class ServerStart {
                         Thread.sleep(1);
                     }
                 }
-                String randomApple = " ?";
-                if (random.nextDouble() < 0.05) {
+                String randomFood = " ?";
+                double probability = random.nextDouble();
+                if (probability < 0.05) {
                     Apple temp = new Apple();
-                    randomApple = " "+ temp.getCenterX()+"_"+temp.getCenterY();
+                    randomFood = " Apple_"+ temp.getCenterX()+"_"+temp.getCenterY();
+                }
+                if(probability < 0.025){
+                    Apple temp = new Apple();
+                    randomFood = " Apple_"+ temp.getCenterX()+"_"+temp.getCenterY();
                 }
                 for (int k = 0; k <playerCount ; k++) {
                     for (int i = 0; i < playerCount; i++) {
-                        out[k].writeUTF(data[i]+ randomApple);
+                        out[k].writeUTF(data[i]+ randomFood);
                     }
                     System.out.print(k + " snake: ");
                     System.out.print(data[k] + " ");

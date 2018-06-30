@@ -56,8 +56,10 @@ public class GameAnimation extends AnimationTimer {
             output[4] = "none";
             sendData();
             getData();
-            if(!input[playerNumber][5].equals("?")){
-                spawningFood(input[playerNumber][5]);
+            for (int i = 5; i < input[playerNumber].length; i++) {
+                if(!input[playerNumber][i].equals("?")){
+                    spawningFood(input[playerNumber][i]);
+                }
             }
             for (int i = 0; i <snakes.length; i++) {
                 score[i].setText(input[i][1] + ": " +(snakes[i].getSize() - 5));
@@ -236,13 +238,19 @@ public class GameAnimation extends AnimationTimer {
 
     private void spawningFood(String s){
         String temp[] = s.split("_");
-        double temp_x = Double.parseDouble(temp[0]);
-        double temp_y = Double.parseDouble(temp[1]);
-        Apple tempApp = new Apple();
-        tempApp.setCenterX(temp_x);
-        tempApp.setCenterY(temp_y);
-        food.add(tempApp);
-        gameView.getChildren().add(tempApp);
+        String tempKind = temp[0];
+        double tempX = Double.parseDouble(temp[1]);
+        double tempY = Double.parseDouble(temp[2]);
+        Food tempFood;
+        if(tempKind.equals("Apple")){
+            tempFood = new Apple();
+        }else{
+            tempFood = new Apple();
+        }
+        tempFood.setCenterX(tempX);
+        tempFood.setCenterY(tempY);
+        food.add(tempFood);
+        gameView.getChildren().add(tempFood);
 
     }
 
