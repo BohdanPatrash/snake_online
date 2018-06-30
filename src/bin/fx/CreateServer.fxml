@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="440.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bin.fxController.CreateServerController">
+   <children>
+      <TextField fx:id="localIPTextField" alignment="CENTER" layoutX="125.0" layoutY="100.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label fx:id="localIPLabel" alignment="CENTER" layoutX="125.0" layoutY="75.0" prefHeight="15.0" prefWidth="190.0" text="Local IP" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label fx:id="playersAmountLabel" layoutX="125.0" layoutY="234.0" prefHeight="15.0" prefWidth="190.0" text="Players amount">
+         <font>
+            <Font size="12.0" />
+         </font></Label>
+      <MenuButton fx:id="playersAmountMenuButton" alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0">
+
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </MenuButton>
+      <Label fx:id="portLabel" alignment="CENTER" layoutX="125.0" layoutY="147.0" prefHeight="15.0" prefWidth="190.0" text="Port" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <TextField fx:id="portTextField" alignment="CENTER" layoutX="125.0" layoutY="170.0" prefHeight="25.0" prefWidth="190.0" />
+      <Button fx:id="createAndPlayButton" layoutX="125.0" layoutY="290.0" mnemonicParsing="false" onAction="#createAndPlayButtonPress" onMouseEntered="#createAndPlayButtonSetOnMouseEntered" onMouseExited="#createAndPlayButtonSetOnMouseExited" prefHeight="40.0" prefWidth="190.0" text="Create and play">
+         <font>
+            <Font size="12.0" />
+         </font></Button>
+       <Button fx:id="backButton" layoutX="330.0" layoutY="401.0" mnemonicParsing="false" onAction="#backButtonPress" prefHeight="25.0" prefWidth="90.0" text="Back" />
+   </children>
+</AnchorPane>

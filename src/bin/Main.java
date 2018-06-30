@@ -10,7 +10,6 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.Properties;
 
 
@@ -29,10 +28,10 @@ public static Properties languageProperties;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        menu = new Scene(FXMLLoader.load(getClass().getResource("fx/menu.fxml")), 440, 440);
+        menu = new Scene(FXMLLoader.load(getClass().getResource("fx/Menu.fxml")), 440, 440);
         window = primaryStage;
         window.setScene(menu);
-        window.getIcons().add(new Image("images/icon.png"));
+        window.getIcons().add(new Image("bin/images/icon.png"));
         window.setX(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2-window.getScene().getWidth()/2);
         window.setY(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2-window.getScene().getHeight()/2);
         window.setTitle(languageProperties.getProperty("windowName"));

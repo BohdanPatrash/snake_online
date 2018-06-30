@@ -21,7 +21,7 @@ public class ServerStart {
             System.out.println("server created");
             for (int i = 0; i < playerCount ; i++) {
                 client[i] = server.accept();
-                System.out.println("client "+ i+" connected");
+                System.out.println("client "+ i +" connected");
                 out[i] = new DataOutputStream(client[i].getOutputStream());
                 in[i] = new DataInputStream(client[i].getInputStream());
                 out[i].writeInt(i);

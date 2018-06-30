@@ -8,17 +8,17 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bin.fxController.MenuController">
    <children>
-      <Button fx:id="exitButton" layoutX="125.0" layoutY="270.0" mnemonicParsing="false" onAction="#exitButtonPress" prefHeight="40.0" prefWidth="190.0" text="EXIT">
+      <Button fx:id="exitButton" layoutX="125.0" layoutY="270.0" mnemonicParsing="false" onAction="#exitButtonPress" onMouseEntered="#exitButtonSetOnMouseEntered" onMouseExited="#exitButtonSetOnMouseExited" prefHeight="40.0" prefWidth="190.0" text="EXIT">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="optionButton" layoutX="125.0" layoutY="210.0" mnemonicParsing="false" onAction="#optionButtonPress" prefHeight="40.0" prefWidth="190.0" text="OPTIONS">
+      <Button fx:id="optionButton" layoutX="125.0" layoutY="210.0" mnemonicParsing="false" onAction="#optionButtonPress" onMouseEntered="#optionButtonSetOnMouseEntered" onMouseExited="#optionButtonSetOnMouseExited" prefHeight="40.0" prefWidth="190.0" text="OPTIONS">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="startButton" layoutX="125.0" layoutY="150.0" mnemonicParsing="false" onAction="#startButtonPress" prefHeight="40.0" prefWidth="190.0" text="START">
+      <Button fx:id="startButton" layoutX="125.0" layoutY="150.0" mnemonicParsing="false" onAction="#startButtonPress" onMouseEntered="#startButtonSetOnMouseEntered" onMouseExited="#startButtonSetOnMouseExited" prefHeight="40.0" prefWidth="190.0" text="START">
          <font>
             <Font size="20.0" />
          </font>
