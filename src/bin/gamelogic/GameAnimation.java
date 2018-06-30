@@ -2,7 +2,6 @@ package bin.gamelogic;
 
 import bin.food.Apple;
 import bin.Main;
-import bin.food.Food;
 import bin.snake.Snake;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
@@ -13,9 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import java.awt.Toolkit;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class GameAnimation extends AnimationTimer {
@@ -35,24 +32,27 @@ public class GameAnimation extends AnimationTimer {
     private int playerCount = 3;
     private boolean activatedSnakes = false;
 
+    static BufferedReader in;
+    static PrintWriter out;
+
+
     GameAnimation(Pane gameView, Scene gameScene){
         this.gameView = gameView;
         this.gameScene = gameScene;
         //serverConnecting();
-
     }
 
     @Override
-    public void handle(long now) {
+    public void handle(long now){
         if(now - lastUpdate >= 200_000_000) {
             snake.move();
-            output[0] = Integer.toString(snake.getDirection());
-            output[1] = Main.name;
-            output[2] = Integer.toString(snake.getSpawn());
-            output[3] = food.getCenterX()+" "+food.getCenterY();
-            output[4] = "none";
-            //sendData();
-            //getData();
+//            output[0] = Integer.toString(snake.getDirection());
+//            output[1] = Main.name;
+//            output[2] = Integer.toString(snake.getSpawn());
+//            output[3] = food.getCenterX()+" "+food.getCenterY();
+//            output[4] = "none";
+//            sendData();
+//            getData();
 //            for (int i = 0; i <snakes.length; i++) {
 //                if(i != playerNumber){
 //                    if (!activatedSnakes){
@@ -73,6 +73,8 @@ public class GameAnimation extends AnimationTimer {
 //                }
 //
 //            }
+
+
             if (snake.eats(food)) {
                 gameView.getChildren().remove(food);
                 food = new Apple();
@@ -94,7 +96,7 @@ public class GameAnimation extends AnimationTimer {
         stop();
         int image_width = 250;
         int image_height = 200;
-        ImageView gameover = new ImageView(new Image("images/game_over.png",
+        ImageView gameover = new ImageView(new Image("bin/images/game_over.png",
                 250,
                 200,
                 false,

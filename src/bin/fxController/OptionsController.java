@@ -80,29 +80,29 @@ public class OptionsController{
     }
 
     private void setLanguageMenuButton(){
-        ImageView UAflag1 = new ImageView(new Image("images/UA.png", 20,14,false,false));
-        ImageView ENflag1 = new ImageView(new Image("images/EN.png", 20,14,false,false));
-        ImageView PLflag1 = new ImageView(new Image("images/PL.png", 20,14,false,false));
-        ImageView RUflag1 = new ImageView(new Image("images/RU.png", 20,14,false,false));
+        ImageView UAflag1 = new ImageView(new Image("bin/images/UA.png", 20,14,false,false));
+        ImageView ENflag1 = new ImageView(new Image("bin/images/EN.png", 20,14,false,false));
+        ImageView PLflag1 = new ImageView(new Image("bin/images/PL.png", 20,14,false,false));
+        ImageView RUflag1 = new ImageView(new Image("bin/images/RU.png", 20,14,false,false));
 
         MenuItem ENitem = new MenuItem("English");
         MenuItem PLitem = new MenuItem("Polski");
         MenuItem UAitem = new MenuItem("Українська");
         MenuItem RUitem = new MenuItem("Русский");
 
-        ImageView UAflag = new ImageView(new Image("images/UA.png", 20,14,false,false));
+        ImageView UAflag = new ImageView(new Image("bin/images/UA.png", 20,14,false,false));
         UAitem.setGraphic(UAflag);
         languageMB.getItems().add(UAitem);
 
-        ImageView ENflag = new ImageView(new Image("images/EN.png", 20, 14, false,false));
+        ImageView ENflag = new ImageView(new Image("bin/images/EN.png", 20, 14, false,false));
         ENitem.setGraphic(ENflag);
         languageMB.getItems().add(ENitem);
 
-        ImageView PLflag = new ImageView(new Image("images/PL.png", 20,14,false,false));
+        ImageView PLflag = new ImageView(new Image("bin/images/PL.png", 20,14,false,false));
         PLitem.setGraphic(PLflag);
         languageMB.getItems().add(PLitem);
 
-        ImageView RUflag = new ImageView(new Image("images/RU.png", 20,14,false,false));
+        ImageView RUflag = new ImageView(new Image("bin/images/RU.png", 20,14,false,false));
         RUitem.setGraphic(RUflag);
         languageMB.getItems().add(RUitem);
 
