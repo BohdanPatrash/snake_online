@@ -51,10 +51,6 @@ public class ServerStart {
                     for (int i = 0; i < playerCount; i++) {
                         out[k].writeUTF(data[i]+ randomFood);
                     }
-                    System.out.print(k + " snake: ");
-                    System.out.print(data[k] + " ");
-                    System.out.println();
-
                 }
 
                 Thread.sleep(10);
