@@ -57,7 +57,6 @@ public class OptionsController{
     @FXML
     public void initialize()throws IOException{
         languageMB.setMinWidth(135);
-        ex0Label.setText("");
         messageLable.setVisible(false);
         setLanguageMenuButton();
         setTexts();
@@ -77,6 +76,7 @@ public class OptionsController{
         musicVolumeLable.setText(Main.languageProperties.getProperty("musicVolumeEx"));
         Ar2_RB.setText(2 + " " + Main.languageProperties.getProperty("arrows"));
         Ar4_RB.setText(4 + " " + Main.languageProperties.getProperty("arrows"));
+        ex0Label.setText("");
     }
 
     private void setLanguageMenuButton(){

@@ -28,7 +28,7 @@ public static Properties languageProperties;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        menu = new Scene(FXMLLoader.load(getClass().getResource("fx/menu.fxml")), 440, 440);
+        menu = new Scene(FXMLLoader.load(getClass().getResource("fx/Menu.fxml")), 440, 440);
         window = primaryStage;
         window.setScene(menu);
         window.getIcons().add(new Image("bin/images/icon.png"));
