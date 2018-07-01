@@ -182,6 +182,9 @@ public class GameAnimation extends AnimationTimer {
         snake = snakes[playerNumber];
         snake.setSpawn(playerNumber);
         snake.setDirection(playerNumber);
+        if (playerNumber == 0) snake.repaint("#072b96");
+        else if (playerNumber == 1) snake.repaint("#850696");
+        else if (playerNumber == 2) snake.repaint("#82486f");
         snake.spawn();
         snake.show();
         gameScene.setOnKeyPressed(event -> {

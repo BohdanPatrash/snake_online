@@ -151,6 +151,15 @@ public class Snake{
         pane.getChildren().remove(head);
     }
 
+    public void repaint(String color){
+        SquareDOT dot = getHead();
+        for (int i = 0; i < body.size() ; i++) {
+            dot.setFill(Color.web(color));
+            if(dot.hasNext()) dot = dot.getNext();
+        }
+        pane.getChildren().remove(head);
+    }
+
     public SnakeList getBody(){return body;}
 
     public SquareDOT getHead(){
