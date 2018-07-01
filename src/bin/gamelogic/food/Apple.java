@@ -1,6 +1,6 @@
-package bin.food;
+package bin.gamelogic.food;
 
-import bin.snake.Snake;
+import bin.gamelogic.snake.Snake;
 import javafx.scene.paint.Color;
 
 public class Apple extends Food{

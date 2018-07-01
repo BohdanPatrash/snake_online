@@ -1,4 +1,4 @@
-package bin.snake;
+package bin.gamelogic.snake;
 
 public class SnakeList {
     private int size=2;

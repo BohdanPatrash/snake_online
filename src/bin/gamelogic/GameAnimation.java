@@ -1,9 +1,9 @@
 package bin.gamelogic;
 
-import bin.food.Apple;
+import bin.gamelogic.food.Apple;
 import bin.Main;
-import bin.food.Food;
-import bin.snake.Snake;
+import bin.gamelogic.food.Food;
+import bin.gamelogic.snake.Snake;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -34,13 +34,16 @@ public class GameAnimation extends AnimationTimer {
     private int playerNumber;
     private int playerCount;
     private boolean activatedSnakes = false;
-    private String foodCoordinates[];
     private List<Food> food = new ArrayList<>();
+    private String ip;
+    private int port;
 
 
-    GameAnimation(Pane gameView, Scene gameScene){
+    GameAnimation(Pane gameView, Scene gameScene, String ip, int port){
         this.gameView = gameView;
         this.gameScene = gameScene;
+        this.ip = ip;
+        this.port = port;
         serverConnecting();
 
     }
@@ -48,7 +51,7 @@ public class GameAnimation extends AnimationTimer {
     @Override
     public void handle(long now){
         if(now - lastUpdate >= 200_000_000) {
-            //snake.move();
+            snake.move();
             output[0] = Integer.toString(snake.getDirection());
             output[1] = Main.name;
             output[2] = Integer.toString(snake.getSpawn());
@@ -66,7 +69,7 @@ public class GameAnimation extends AnimationTimer {
                 if(i != playerNumber){
                     renderAll(i);
                     snakes[i].setDirection(Integer.parseInt(input[i][0]));
-                    //snakes[i].move();
+                    snakes[i].move();
                     if (snakes[i].eats(food)){
                         score[i].setText(input[i][1] + ": " +(snakes[i].getSize() - 5));
                     }
@@ -248,7 +251,7 @@ public class GameAnimation extends AnimationTimer {
 
     private void serverConnecting(){
         try {
-            socket = new Socket("localhost", 3355);
+            socket = new Socket(ip, port);
             System.out.println("Client connected to socket");
         } catch(Exception e){
             e.printStackTrace();

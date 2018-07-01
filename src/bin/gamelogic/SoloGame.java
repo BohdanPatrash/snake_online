@@ -1,9 +1,9 @@
 package bin.gamelogic;
 
-import bin.food.Apple;
+import bin.gamelogic.food.Apple;
 import bin.Main;
-import bin.food.Food;
-import bin.snake.Snake;
+import bin.gamelogic.food.Food;
+import bin.gamelogic.snake.Snake;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,8 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import java.awt.Toolkit;
-import java.io.*;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

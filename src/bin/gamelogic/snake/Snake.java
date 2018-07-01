@@ -1,7 +1,6 @@
-package bin.snake;
+package bin.gamelogic.snake;
 
-import bin.food.Apple;
-import bin.food.Food;
+import bin.gamelogic.food.Food;
 import bin.gamelogic.GameField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

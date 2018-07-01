@@ -1,7 +1,7 @@
-package bin.food;
+package bin.gamelogic.food;
 
 import bin.gamelogic.GameField;
-import bin.snake.Snake;
+import bin.gamelogic.snake.Snake;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import java.util.Random;

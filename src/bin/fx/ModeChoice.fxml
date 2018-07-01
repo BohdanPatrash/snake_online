@@ -10,11 +10,11 @@
          <font>
             <Font size="12.0" />
          </font></Button>
-      <Button fx:id="joinServerButton" layoutX="125.0" layoutY="130.0" mnemonicParsing="false" onAction="#joinServerButtonPress" onMouseEntered="#joinServerButtonSetOnMouseEntered" onMouseExited="#joinServerButtonSetOnMouseExited" prefHeight="40.0" prefWidth="190.0" text="Join server ">
+      <Button fx:id="joinServerButton" layoutX="125.0" layoutY="130.0" mnemonicParsing="false" onAction="#joinServerButtonPress" onMouseEntered="#joinServerButtonSetOnMouseEntered" onMouseExited="#joinServerButtonSetOnMouseExited" prefHeight="40.0" prefWidth="190.0" text="Join bin.gamelogic.server ">
          <font>
             <Font size="12.0" />
          </font></Button>
-      <Button fx:id="createServerButton" layoutX="125.0" layoutY="200.0" mnemonicParsing="false" onAction="#createServerButtonPress" onMouseEntered="#createServerButtonSetOnMouseEntered" onMouseExited="#createServerButtonSetOnMouseExited" prefHeight="40.0" prefWidth="190.0" text="Create server ">
+      <Button fx:id="createServerButton" layoutX="125.0" layoutY="200.0" mnemonicParsing="false" onAction="#createServerButtonPress" onMouseEntered="#createServerButtonSetOnMouseEntered" onMouseExited="#createServerButtonSetOnMouseExited" prefHeight="40.0" prefWidth="190.0" text="Create bin.gamelogic.server ">
          <font>
             <Font size="12.0" />
          </font></Button>

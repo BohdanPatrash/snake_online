@@ -1,4 +1,4 @@
-package bin.snake;
+package bin.gamelogic.snake;
 
 import bin.*;
 import javafx.scene.paint.Color;

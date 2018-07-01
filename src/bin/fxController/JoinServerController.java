@@ -1,6 +1,7 @@
 package bin.fxController;
 
 import bin.Main;
+import bin.gamelogic.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,7 +40,9 @@ public class JoinServerController {
     }
 
     public void joinButtonPress(){
-        //                                                         !!!
+        int port = Integer.parseInt(portTextField.getText());
+        String ip = addressTextField.getText();
+        new Game(ip ,port);
     }
 
     public void backButtonPress(){

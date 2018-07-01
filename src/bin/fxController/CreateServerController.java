@@ -1,6 +1,8 @@
 package bin.fxController;
 
 import bin.Main;
+import bin.gamelogic.Game;
+import bin.gamelogic.server.ServerStart;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -54,7 +56,11 @@ public class CreateServerController {
     }
 
     public void createAndPlayButtonPress(){
-        //                                                          !!!
+        int playerCount = Integer.parseInt(playersAmountMenuButton.getText());
+        int port = Integer.parseInt(portTextField.getText());
+        String ip = localIPTextField.getText();
+        new Thread(new ServerStart(playerCount, port)).start();
+        new Game(ip ,port);
     }
 
     public void backButtonPress(){

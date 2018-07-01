@@ -1,24 +1,32 @@
-package server;
+package bin.gamelogic.server;
 
-import bin.food.Apple;
+import bin.gamelogic.food.Apple;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
 
-public class ServerStart {
+public class ServerStart implements Runnable{
 
-    private static volatile String[] data = new String[4];
+    private int port;
+    private int playerCount;
+    private String[] data;
 
-    public static void main(String[] args) {
-        int playerCount = 2 ;
+    public ServerStart(int playerCount, int port) {
+        this.playerCount = playerCount;
+        this.port = port;
+        data = new String[playerCount];
+    }
+
+    @Override
+    public void run() {
         Socket client[] = new Socket[playerCount];
         DataOutputStream out[] = new DataOutputStream[playerCount];
         DataInputStream in[] = new DataInputStream[playerCount];
         Random random = new Random();
-        try (ServerSocket server = new ServerSocket(3355)) {
-            System.out.println("server created");
+        try (ServerSocket server = new ServerSocket(port)) {
+            System.out.println("bin.gamelogic.server created");
             for (int i = 0; i < playerCount ; i++) {
                 client[i] = server.accept();
                 System.out.println("client "+ i +" connected");
@@ -31,7 +39,7 @@ public class ServerStart {
                 for (int i = 0; i <playerCount ; i++) {
                     while (!client[i].isClosed()) {
                         if (in[i].available() > 0) {
-                                data[i] = in[i].readUTF();
+                            data[i] = in[i].readUTF();
                             break;
                         }
                         Thread.sleep(1);
@@ -55,7 +63,6 @@ public class ServerStart {
                     Apple temp = new Apple();
                     randomFood += " Apple_"+ temp.getCenterX()+"_"+temp.getCenterY();
                 }
-                System.out.println(randomFood);
                 for (int k = 0; k <playerCount ; k++) {
                     for (int i = 0; i < playerCount; i++) {
                         out[k].writeUTF(data[i]+ randomFood);
