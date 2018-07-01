@@ -22,6 +22,8 @@ public class Snake{
     private boolean lost = false;
     private int direction = 0; // 0 -> right ; 1 -> down ; 2 -> left ; 3 -> up
     private Food tempF;
+    private int lastHorizontal = 0;
+    private int lastVertical = -step;
 
     public int getSize() {return body.size();}
 
@@ -77,6 +79,8 @@ public class Snake{
     }
 
     public void move(){
+        lastHorizontal = horizontal;
+        lastVertical = vertical;
         body.getLast().setX(head.getX());
         body.getLast().setY(head.getY());
         body.add_second(body.getLast());
@@ -166,20 +170,21 @@ public class Snake{
     }
 
     public void setDirection(int direction){
-        this.direction = direction;
-        if(direction == 3){
+
+        if(direction == 3 && vertical == 0 && lastVertical==0){
             vertical=-step;
             horizontal=0;
-        }else if(direction == 2){
+        }else if(direction == 2  && horizontal == 0 && lastHorizontal==0){
             vertical=0;
             horizontal=-step;
-        }else if(direction == 1){
+        }else if(direction == 1 && vertical == 0 && lastVertical==0){
             vertical=step;
             horizontal=0;
-        }else if( direction == 0){
+        }else if( direction == 0  && horizontal == 0 && lastHorizontal ==0){
             vertical=0;
             horizontal=step;
         }
+        this.direction = direction;
     }
 
     public int getSpawn(){
