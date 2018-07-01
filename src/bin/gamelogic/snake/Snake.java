@@ -23,7 +23,7 @@ public class Snake{
     private int direction = 0; // 0 -> right ; 1 -> down ; 2 -> left ; 3 -> up
     private Food tempF;
     private int lastHorizontal = 0;
-    private int lastVertical = -step;
+    private int lastVertical = 0;
 
     public int getSize() {return body.size();}
 
@@ -171,16 +171,16 @@ public class Snake{
 
     public void setDirection(int direction){
 
-        if(direction == 3 && vertical == 0 && lastVertical==0){
+        if(direction == 3 && lastVertical==0){
             vertical=-step;
             horizontal=0;
-        }else if(direction == 2  && horizontal == 0 && lastHorizontal==0){
+        }else if(direction == 2 && lastHorizontal==0){
             vertical=0;
             horizontal=-step;
-        }else if(direction == 1 && vertical == 0 && lastVertical==0){
+        }else if(direction == 1 && lastVertical==0){
             vertical=step;
             horizontal=0;
-        }else if( direction == 0  && horizontal == 0 && lastHorizontal ==0){
+        }else if( direction == 0 && lastHorizontal ==0){
             vertical=0;
             horizontal=step;
         }
