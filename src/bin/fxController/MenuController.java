@@ -20,15 +20,15 @@ public class MenuController{
     static Scene modeChoiceScene;
 
     @FXML
-    TextField nameField;
+    private TextField nameField;
     @FXML
-    Button startButton;
+    private Button startButton;
     @FXML
-    Button exitButton;
+    private Button exitButton;
     @FXML
-    Button optionButton;
+    private Button optionButton;
     @FXML
-    Label yourNameLabel;
+    private Label yourNameLabel;
 
     @FXML
     public void initialize() throws Exception{

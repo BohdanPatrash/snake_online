@@ -9,24 +9,24 @@ import javafx.scene.control.*;
 public class CreateServerController {
 
     @FXML
-    Label localIPLabel;
+    private Label localIPLabel;
     @FXML
-    Label portLabel;
+    private Label portLabel;
     @FXML
-    Label playersAmountLabel;
+    private Label playersAmountLabel;
 
     @FXML
-    TextField localIPTextField;
+    private TextField localIPTextField;
     @FXML
-    TextField portTextField;
+    private TextField portTextField;
 
     @FXML
-    Button createAndPlayButton;
+    private Button createAndPlayButton;
     @FXML
-    Button backButton;
+    private Button backButton;
 
     @FXML
-    MenuButton playersAmountMenuButton;
+    private MenuButton playersAmountMenuButton;
 
     @FXML
     public void initialize() throws Exception{

@@ -13,19 +13,19 @@ import java.io.IOException;
 public class JoinServerController {
 
     @FXML
-    Label addressIPLabel;
+    private Label addressIPLabel;
     @FXML
-    Label portLabel;
+    private Label portLabel;
 
     @FXML
-    Button joinButton;
+    private Button joinButton;
     @FXML
-    Button backButton;
+    private Button backButton;
 
     @FXML
-    TextField addressTextField;
+    private TextField addressTextField;
     @FXML
-    TextField portTextField;
+    private TextField portTextField;
 
     @FXML
     public void initialize() throws IOException {

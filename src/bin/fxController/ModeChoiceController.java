@@ -16,13 +16,13 @@ public class ModeChoiceController {
     static private Scene createServerScene;
 
     @FXML
-    Button joinServerButton;
+    private Button joinServerButton;
     @FXML
-    Button backButton;
+    private Button backButton;
     @FXML
-    Button createServerButton;
+    private Button createServerButton;
     @FXML
-    Button soloButton;
+    private Button soloButton;
 
     @FXML
     public void initialize() throws IOException{
