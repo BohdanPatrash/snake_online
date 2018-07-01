@@ -62,7 +62,7 @@ public class SoloGame extends AnimationTimer {
                 score.setText(Main.languageProperties.getProperty("score") + " " +(snake.getSize() - 5));
             }
 
-            if (snake.hits_border() || snake.hit_self()) {
+            if (snake.hitsBorder() || snake.hitSelf()) {
                 loose();
                 stop();
             }

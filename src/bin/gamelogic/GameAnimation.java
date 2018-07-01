@@ -12,7 +12,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import java.awt.Toolkit;
+import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
+
+import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import java.util.List;
 
 
 public class GameAnimation extends AnimationTimer {
+
     private String[] output = new String[5];
     private String[][] input;
     private Snake snake;
@@ -37,6 +41,8 @@ public class GameAnimation extends AnimationTimer {
     private List<Food> food = new ArrayList<>();
     private String ip;
     private int port;
+    private boolean alive = true;
+    private boolean snakeRemoved[] = new boolean[4];;
 
 
     GameAnimation(Pane gameView, Scene gameScene, String ip, int port){
@@ -46,85 +52,99 @@ public class GameAnimation extends AnimationTimer {
         this.port = port;
         serverConnecting();
 
+
     }
 
     @Override
     public void handle(long now){
         if(now - lastUpdate >= 200_000_000) {
-            snake.move();
-            output[0] = Integer.toString(snake.getDirection());
-            output[1] = Main.name;
-            output[2] = Integer.toString(snake.getSpawn());
-            output[3] = "none";
-            output[4] = "none";
-            sendData();
-            getData();
-            for (int i = 5; i < input[playerNumber].length; i++) {
-                if(!input[playerNumber][i].equals("?")){
-                    spawningFood(input[playerNumber][i]);
-                }
-            }
-            for (int i = 0; i <snakes.length; i++) {
-                score[i].setText(input[i][1] + ": " +(snakes[i].getSize() - 5));
-                if(i != playerNumber){
-                    renderAll(i);
-                    snakes[i].setDirection(Integer.parseInt(input[i][0]));
-                    snakes[i].move();
-                    if (snakes[i].eats(food)){
-                        score[i].setText(input[i][1] + ": " +(snakes[i].getSize() - 5));
+            if (!allSnakesDead()) {
+                snake.move();
+                output[0] = Integer.toString(snake.getDirection());
+                output[1] = Main.name;
+                output[2] = Integer.toString(snake.getSpawn());
+                output[3] = Boolean.toString(alive);
+                output[4] = "none";
+                sendData();
+                getData();
+                for (int i = 5; i < input[playerNumber].length; i++) {
+                    if (!input[playerNumber][i].equals("?")) {
+                        spawningFood(input[playerNumber][i]);
                     }
                 }
-            }
-            activatedSnakes = true;
-            if (snake.eats(food)) {
-                score[playerNumber].setText(input[playerNumber][1] + ": " +(snake.getSize() - 5));
-            }
+                for (int i = 0; i < snakes.length; i++) {
 
-            if (snake.hits_border() || snake.hit_self()) {
-//                loose();
-//                stop();
+                    score[i].setText(input[i][1] + ": " + (snakes[i].getSize() - 5));
+                    if (input[i][3].equals("false") && !snakeRemoved[i]) {
+                        score[i].setTextFill(Color.RED);
+                        snakes[i].removeSnake();
+                        snakeRemoved[i] = true;
+                    }
+                    if (!snakeRemoved[i]) {
+                        if (i != playerNumber) {
+                            renderAll(i);
+                            snakes[i].setDirection(Integer.parseInt(input[i][0]));
+                            snakes[i].move();
+                            if (snakes[i].eats(food)) {
+                                score[i].setText(input[i][1] + ": " + (snakes[i].getSize() - 5));
+                            }
+                        }
+                    }
+
+                }
+                activatedSnakes = true;
+                if (snake.eats(food)) {
+                    score[playerNumber].setText(input[playerNumber][1] + ": " + (snake.getSize() - 5));
+                }
+
+                if (snake.hitsBorder() || snake.hitSelf()) {
+                    alive = false;
+                }
+                for (int i = 0; i <playerCount ; i++) {
+                    if (i!=playerNumber && snake.hitAnotherSnake(snakes[i]) && !snakeRemoved[i]){
+                        alive = false;
+                    }
+                }
+            }else {
+                end();
             }
 
             lastUpdate = now;
         }
     }
 
-    private void loose() {
-        snake.loose();
+    private void end() {
         gameView.getChildren().clear();
         stop();
         int image_width = 250;
         int image_height = 200;
         ImageView gameover = new ImageView(new Image("bin/images/game_over.png",
-                250,
-                200,
+                image_width,
+                image_height,
                 false,
                 false));
-        gameover.setLayoutX(GameField.x/2-image_width/2+20);
-        gameover.setLayoutY(GameField.y/2-image_height);
-        Button restart_button = new Button(Main.languageProperties.getProperty("restart"));
-        restart_button.setPrefSize(100,35);
-        restart_button.setLayoutX(GameField.x/2-restart_button.getPrefWidth()/2+20);
-        restart_button.setLayoutY(GameField.y/2+10);
-        restart_button.setStyle("-fx-background-color: #917337");
-        restart_button.setScaleX(1.5);
-        restart_button.setScaleY(1.5);
-        restart_button.setOnMousePressed(event -> startThis());
-
+        gameover.setLayoutX(Game.x/2-image_width/2);
+        gameover.setLayoutY(Game.y/2-image_height-100);
         Button menu_button = new Button(Main.languageProperties.getProperty("menu"));
         menu_button.setPrefSize(100,35);
-        menu_button.setLayoutX(GameField.x/2-menu_button.getPrefWidth()/2+20);
-        menu_button.setLayoutY(GameField.y/2+40+menu_button.getPrefHeight());
+        menu_button.setLayoutX(Game.x/2-menu_button.getPrefWidth()/2);
+        menu_button.setLayoutY(Game.y/2+50+menu_button.getPrefHeight());
         menu_button.setStyle("-fx-background-color: #917337");
         menu_button.setScaleX(1.5);
         menu_button.setScaleY(1.5);
         menu_button.setOnMousePressed(event -> exitToMenu());
 
         gameView.getChildren().addAll(new SnakeBackground(),
-                                            new GameField(),
                                             gameover,
-                                            restart_button,
                                             menu_button);
+        for (int i = 0; i <playerCount ; i++) {
+            score[i] = new Label(input[i][1] + ": " + (snakes[i].getSize() - 5));
+            score[i].setLayoutX(Game.x/2-image_width/2+50);
+            score[i].setLayoutY(Game.y/2-90+40*i);
+            score[i].setScaleX(2);
+            score[i].setScaleY(2);
+            gameView.getChildren().add(score[i]);
+        }
     }
 
     private void exitToMenu() {
@@ -317,6 +337,12 @@ public class GameAnimation extends AnimationTimer {
 
     }
 
+    private boolean allSnakesDead(){
+        for (int i = 0; i < playerCount ; i++) {
+            if(!snakeRemoved[i]) return false;
+        }
+        return true;
+    }
 
 
 }

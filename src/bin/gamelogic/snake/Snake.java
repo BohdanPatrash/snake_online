@@ -109,22 +109,42 @@ public class Snake{
         return false;
     }
 
-    public boolean hits_border(){
+    public boolean hitsBorder(){
         return (x < GameField.layoutX ||
                 x > GameField.x-11 ||
                 y < GameField.layoutY ||
                 y > GameField.y-11);
     }
 
-    public boolean hit_self(){
-        SquareDOT body_dot = body.getLast();
+    public boolean hitSelf(){
+        SquareDOT bodyDot = body.getLast();
         for (int i = 0; i <body.size() ; i++) {
-            if(body_dot.getX()==x&&body_dot.getY()==y){
+            if(bodyDot.getX()==x&&bodyDot.getY()==y){
                 return true;
             }
-            body_dot = body_dot.getPrevious();
+            bodyDot = bodyDot.getPrevious();
         }
         return false;
+
+    }
+
+    public boolean hitAnotherSnake(Snake snake){
+        SquareDOT bodyDot = snake.getBody().getLast();
+        for (int i = 0; i <snake.getBody().size() ; i++) {
+            if(bodyDot.getX() == x && bodyDot.getY() == y){
+                return true;
+            }
+            bodyDot = bodyDot.getPrevious();
+        }
+        return false;    }
+
+    public void removeSnake(){
+        SquareDOT dot = getHead();
+        for (int i = 0; i < body.size() ; i++) {
+            if(dot.hasNext()) dot = dot.getNext();
+            pane.getChildren().remove(dot);
+        }
+        pane.getChildren().remove(head);
     }
 
     public SnakeList getBody(){return body;}
@@ -173,4 +193,6 @@ public class Snake{
     public Food getTempF(){
         return tempF;
     }
+
+
 }
