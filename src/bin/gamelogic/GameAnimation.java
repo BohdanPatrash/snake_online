@@ -172,6 +172,10 @@ public class GameAnimation extends AnimationTimer {
             score[i] = new Label(Main.languageProperties.getProperty("score") + " " +0);
             score[i].setLayoutX(700);
             score[i].setLayoutY(30+i*40);
+            if(i==0)score[i].setTextFill(Color.web("#427412"));
+            else if (i==1)score[i].setTextFill(Color.web("#7727ba"));
+            else if (i==2)score[i].setTextFill(Color.web("#b920bf"));
+            else if (i==3)score[i].setTextFill(Color.web("#ef7f07"));
             gameView.getChildren().add(score[i]);
         }
 
