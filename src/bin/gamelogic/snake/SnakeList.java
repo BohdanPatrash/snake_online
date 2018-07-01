@@ -7,9 +7,9 @@ public class SnakeList {
     private SquareDOT last;
 
 
-    SnakeList(){
-        this.head = new SquareDOT();
-        this.second = new SquareDOT();
+    SnakeList(String color){
+        this.head = new SquareDOT("#d44a0e");
+        this.second = new SquareDOT(color);
         head.setNext(second);
         second.setPrevious(head);
         this.last = second;

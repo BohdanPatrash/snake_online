@@ -177,14 +177,15 @@ public class GameAnimation extends AnimationTimer {
 
         snakes = new Snake[playerCount];
         for (int i = 0; i <snakes.length ; i++) {
-            snakes[i] = new Snake(gameView);
+            if(i==0)snakes[i] = new Snake(gameView,"#427412");
+            else if (i==1)snakes[i] = new Snake(gameView,"#7727ba");
+            else if (i==2)snakes[i] = new Snake(gameView,"#b920bf");
+            else if (i==3)snakes[i] = new Snake(gameView,"#ef7f07");
         }
         snake = snakes[playerNumber];
         snake.setSpawn(playerNumber);
         snake.setDirection(playerNumber);
-        if (playerNumber == 0) snake.repaint("#072b96");
-        else if (playerNumber == 1) snake.repaint("#850696");
-        else if (playerNumber == 2) snake.repaint("#82486f");
+
         snake.spawn();
         snake.show();
         gameScene.setOnKeyPressed(event -> {

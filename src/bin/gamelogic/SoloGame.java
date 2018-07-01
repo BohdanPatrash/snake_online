@@ -126,7 +126,7 @@ public class SoloGame extends AnimationTimer {
         score.setLayoutX(700);
         score.setLayoutY(30);
         gameView.getChildren().addAll(new SnakeBackground(), new GameField(), score);
-        snake = new Snake(gameView);
+        snake = new Snake(gameView, "#427412");
         snake.setSpawn(3);
         snake.setDirection(3);
         snake.spawn();

@@ -7,8 +7,8 @@ import javafx.scene.shape.Rectangle;
 public class SquareDOT extends Rectangle{
     private SquareDOT previous;
     private SquareDOT next;
-    SquareDOT(){
-        setFill(Color.web("#427412"));
+    SquareDOT(String color){
+        setFill(Color.web(color));
         setWidth(11);
         setHeight(11);
         setStroke(Color.BLACK);

@@ -24,15 +24,17 @@ public class Snake{
     private Food tempF;
     private int lastHorizontal = 0;
     private int lastVertical = 0;
+    private String color;
 
     public int getSize() {return body.size();}
 
-    public Snake(Pane pane){
-        body = new SnakeList();
+    public Snake(Pane pane, String color){
+        this.color = color;
+        body = new SnakeList(color);
         head = body.getHead();
         head.setFill(Color.web("#d44a0e"));
         for (int i = 2; i <size ; i++) {
-            body.add(new SquareDOT());
+            body.add(new SquareDOT(color));
         }
         this.pane = pane;
     }
@@ -93,7 +95,7 @@ public class Snake{
     }
 
     public void grow(){
-        SquareDOT temp = new SquareDOT();
+        SquareDOT temp = new SquareDOT(color);
         temp.setX(body.getLast().getX());
         temp.setY(body.getLast().getY());
         body.add(temp);
@@ -152,7 +154,7 @@ public class Snake{
     }
 
     public void repaint(String color){
-        SquareDOT dot = getHead();
+        SquareDOT dot = getHead().getNext();
         for (int i = 0; i < body.size() ; i++) {
             dot.setFill(Color.web(color));
             if(dot.hasNext()) dot = dot.getNext();
