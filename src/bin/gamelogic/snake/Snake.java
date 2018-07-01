@@ -174,17 +174,21 @@ public class Snake{
         if(direction == 3 && lastVertical==0){
             vertical=-step;
             horizontal=0;
+            this.direction = direction;
         }else if(direction == 2 && lastHorizontal==0){
             vertical=0;
             horizontal=-step;
+            this.direction = direction;
         }else if(direction == 1 && lastVertical==0){
             vertical=step;
             horizontal=0;
+            this.direction = direction;
         }else if( direction == 0 && lastHorizontal ==0){
             vertical=0;
             horizontal=step;
+            this.direction = direction;
         }
-        this.direction = direction;
+
     }
 
     public int getSpawn(){
